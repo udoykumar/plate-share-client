@@ -1,10 +1,21 @@
-import React from "react";
+import React, { use } from "react";
 import { IoMdPerson } from "react-icons/io";
 import { MdEmail } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { MdPhotoLibrary } from "react-icons/md";
+import { AuthContext } from "../contexts/AuthContext";
 
 const Ragister = () => {
+  const { singInWithGoogle } = use(AuthContext);
+  const handleGoogleSingIn = () => {
+    singInWithGoogle()
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <div className="flex flex-col h-screen justify-center items-center mt-15">
       <div className="w-[400px]">
@@ -51,8 +62,11 @@ const Ragister = () => {
             Register Now
           </button>
         </form>
-        <hr />
-        <button className="px-5 py-2 bg-amber-500 w-full rounded-full text-white cursor-pointer">
+        <hr className="my-4 text-gray-400" />
+        <button
+          onClick={handleGoogleSingIn}
+          className="px-5 py-2 bg-amber-500 w-full rounded-full text-white cursor-pointer"
+        >
           Login with Google
         </button>
       </div>

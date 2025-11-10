@@ -1,10 +1,23 @@
-import React, { useState } from "react";
-import { Link } from "react-router";
+import React, { use, useState } from "react";
+import { Link, NavLink } from "react-router";
 import { MdOutlineClose } from "react-icons/md";
 import { CiMenuFries } from "react-icons/ci";
+import { AuthContext } from "../contexts/AuthContext";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
+  const { user, logout } = use(AuthContext);
+  console.log(user);
   const [isOpen, setIsOpen] = useState(false);
+  const handleLogout = () => {
+    logout()
+      .then(() => {
+        toast.success("logout successful");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <div>
       <div className="fixed top-0 left-0 z-50 w-full flex items-center justify-between px-6 md:px-16 lg:px-36">
@@ -24,29 +37,48 @@ const Navbar = () => {
             className="md:hidden absolute top-6 right-6 w-6 h-6 cursor-pointer"
           />
 
-          <Link
+          <NavLink
+            className={({ isActive }) =>
+              isActive
+                ? "text-purple-500 font-semibold"
+                : "text-black hover:text-purple-400"
+            }
             onClick={() => {
               scrollTo(0, 0), setIsOpen(false);
             }}
             to="/"
           >
             Home
-          </Link>
-          <Link
+          </NavLink>
+          <NavLink
+            className={({ isActive }) =>
+              isActive
+                ? "text-purple-500 font-semibold"
+                : "text-black hover:text-purple-400"
+            }
             onClick={() => {
               scrollTo(0, 0), setIsOpen(false);
             }}
             to="/availableFood"
           >
             Available Food
-          </Link>
+          </NavLink>
         </div>
         <div className="flex items-center gap-8">
-          {/* <SearchIcon className="max-md:hidden w-6 h-6 cursor-pointer" /> */}
-
-          <button className="px-4  py-1 sm:px-7 sm:py-2 bg-primary hover:bg-primary-dull transition rounded-full font-medium cursor-pointer">
-            Login
-          </button>
+          {user ? (
+            <div className="w-10 h-10 ">
+              <img
+                src={user.photoURL}
+                alt={user.displayName}
+                className="rounded-full"
+              />
+              <button onClick={handleLogout}>logout</button>
+            </div>
+          ) : (
+            <button className="px-4  py-1 sm:px-7 sm:py-2 bg-primary hover:bg-primary-dull transition rounded-full font-medium cursor-pointer">
+              Login
+            </button>
+          )}
         </div>
         <CiMenuFries
           onClick={() => setIsOpen(!isOpen)}
