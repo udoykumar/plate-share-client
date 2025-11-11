@@ -42,7 +42,6 @@ const Login = () => {
       });
   };
 
-  console.log(location);
   return (
     <div className="flex flex-col h-screen justify-center items-center mt-15">
       <div className="w-[400px]">
