@@ -52,11 +52,11 @@ const Navbar = () => {
           />
 
           <NavLink
-            className={({ isActive }) =>
+            className={`
+              ({ isActive }) =>
               isActive
                 ? "text-purple-500 font-semibold"
-                : "text-black hover:text-purple-400"
-            }
+                : "text-black hover:text-purple-400 " text-xl`}
             onClick={() => {
               scrollTo(0, 0);
               setIsOpen(false);
@@ -67,11 +67,12 @@ const Navbar = () => {
           </NavLink>
 
           <NavLink
-            className={({ isActive }) =>
+            className={`
+              ({ isActive }) =>
               isActive
                 ? "text-purple-500 font-semibold"
                 : "text-black hover:text-purple-400"
-            }
+              text-xl`}
             onClick={() => {
               scrollTo(0, 0);
               setIsOpen(false);
