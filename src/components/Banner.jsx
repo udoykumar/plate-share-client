@@ -28,11 +28,11 @@ const Banner = () => {
         </div>
 
         <div className="mt-6 flex gap-4">
-          <button className="px-6 py-3 bg-red-500 text-white rounded-full text-lg font-semibold hover:bg-red-600 transition">
+          <button className="px-6 py-3 btn-primary rounded-full text-lg font-semibold  transition">
             Search Food
           </button>
 
-          <button className="px-6 py-3 bg-white text-gray-800 rounded-full text-lg font-semibold hover:bg-gray-200 transition">
+          <button className="px-6 py-3 btn-secendary rounded-full text-lg font-semibold transition">
             View All Foods
           </button>
         </div>

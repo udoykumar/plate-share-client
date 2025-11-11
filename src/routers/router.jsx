@@ -4,6 +4,10 @@ import Home from "../pages/Home";
 import AvailableFood from "../components/AvailableFood";
 import Ragister from "../pages/Ragister";
 import Login from "../pages/Login";
+import ManageMyFoods from "../pages/ManageMyFoods";
+import AddFood from "../pages/AddFood";
+import MyFoodRequests from "../pages/MyFoodRequests";
+import PrivateRoute from "../privateRoute/PrivateRoute";
 
 export const router = createBrowserRouter([
   {
@@ -25,6 +29,30 @@ export const router = createBrowserRouter([
       {
         path: "login",
         element: <Login />,
+      },
+      {
+        path: "add-food",
+        element: (
+          <PrivateRoute>
+            <AddFood />,
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "manage-food",
+        element: (
+          <PrivateRoute>
+            <ManageMyFoods />,
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "food-request",
+        element: (
+          <PrivateRoute>
+            <MyFoodRequests />,
+          </PrivateRoute>
+        ),
       },
     ],
   },
