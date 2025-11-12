@@ -44,7 +44,7 @@ const AddFood = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto bg-white shadow p-6 rounded-xl my-10">
+    <div className="container mx-auto bg-white shadow p-6 rounded-xl my-10">
       <h1 className="text-3xl font-bold text-purple-600 mb-6 text-center">
         Add Food
       </h1>

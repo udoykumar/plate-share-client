@@ -6,7 +6,7 @@ import OurMission from "../components/OurMission";
 
 const Home = () => {
   return (
-    <div>
+    <div className="container mx-auto">
       <Banner />
       <FeatureFood />
       <HowItWorks />

@@ -1,16 +1,15 @@
-import React from "react";
-import { use } from "react";
-import { useRef } from "react";
+import React, { useContext, useRef } from "react";
 import { FaLocationDot } from "react-icons/fa6";
+import { FaPhoneAlt } from "react-icons/fa";
+
 import { useLoaderData } from "react-router";
 import { AuthContext } from "../contexts/AuthContext";
-import { FaPhoneAlt } from "react-icons/fa";
 
 const FoodDetails = () => {
   const foods = useLoaderData();
   const requestFoodModal = useRef(null);
-  const { user } = use(AuthContext);
-  console.log(foods);
+  const { user } = useContext(AuthContext);
+
   const {
     _id,
     food_name,
@@ -23,24 +22,32 @@ const FoodDetails = () => {
     donator_image,
     food_status,
   } = foods;
-  const handelFoodRequestModal = () => {
+
+  // ✅ open modal
+  const handleFoodRequestModal = () => {
     requestFoodModal.current.showModal();
   };
+
+  // ✅ handle form submit
   const handleFoodReqSubmit = (e) => {
     e.preventDefault();
+
     const location = e.target.location.value;
     const contact = e.target.contact.value;
-    const textarea = e.target.textarea.value;
+    const reason = e.target.reason.value;
+
     const newFoodReq = {
-      _id: _id,
-      user_email: user.email,
-      user_name: user.displayName,
-      photoURL: user.photoURL,
+      food_id: _id, // keep it descriptive for backend
+      user_email: user?.email,
+      user_name: user?.displayName,
+      photoURL: user?.photoURL,
+      location,
+      contact,
+      reason,
       status: "pending",
-      location: location,
-      contact: contact,
-      textarea: textarea,
+      createdAt: new Date(),
     };
+
     fetch("http://localhost:3000/food-request", {
       method: "POST",
       headers: {
@@ -50,11 +57,20 @@ const FoodDetails = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        console.log("Request saved:", data);
+        alert("✅ Food request submitted successfully!");
+        e.target.reset();
+        requestFoodModal.current.close();
+      })
+      .catch((err) => {
+        console.error(err);
+        alert("❌ Failed to submit food request");
       });
   };
+
   return (
-    <div className="min-h-[calc(100vh-100px)] bg-gray-50 py-8 mt-15">
+    <div className="container mx-auto bg-gray-50 py-8 mt-15">
+      {/* Food Card */}
       <div className="card lg:card-side bg-white rounded-0 overflow-hidden md:gap-5 lg:gap-0">
         <figure className="w-full h-80 md:h-[500px] lg:h-full lg:w-[850px] rounded-2xl bg-amber-400">
           <img
@@ -69,7 +85,6 @@ const FoodDetails = () => {
             <h2 className="card-title text-3xl font-bold text-[#fd7d07] pb-2">
               {food_name}
             </h2>
-            {/* <p className="text-gray-700 mb-4">{description}</p> */}
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6 text-sm text-gray-600">
               <p>
@@ -80,45 +95,19 @@ const FoodDetails = () => {
                 <span className="font-semibold text-gray-700">Quantity:</span>{" "}
                 {food_quantity}
               </p>
-
-              {/* <p>
-                <span className="font-semibold text-gray-700">
-                  Cooked Time:
-                </span>{" "}
-                {food}
-              </p> */}
               <p>
                 <span className="font-semibold text-gray-700">
                   Expire Date:
                 </span>{" "}
                 {expire_date}
               </p>
-              {/* <p>
-                <span className="font-semibold text-gray-700">
-                  Pickup Time:
-                </span>{" "}
-                {}
-              </p> */}
               <p>
                 <span className="font-semibold text-gray-700">Location:</span>{" "}
                 {pickup_location}
               </p>
-              {/* <p>
-                <span className="font-semibold text-gray-700">Packaging:</span>{" "}
-                {packagingType}
-              </p> */}
-              <p>
-                <span className="font-semibold text-gray-700">Rating:</span>{" "}
-                {food_status} ⭐
-              </p>
-              <p>
-                <span className="font-semibold text-gray-700">Requests:</span>{" "}
-                {food_quantity}
-              </p>
             </div>
 
-            <div className="mb-4"></div>
-
+            {/* Donator Info */}
             <div className="mb-6 border-t pt-4 border-[#fd7e075d]">
               <h3 className="font-semibold mb-2 text-[#fd7d07] text-xl">
                 Donator Information
@@ -135,56 +124,69 @@ const FoodDetails = () => {
                 </div>
               </div>
             </div>
+
+            {/* Request Button */}
             <button
-              onClick={handelFoodRequestModal}
+              onClick={handleFoodRequestModal}
               className="btn btn-primary"
             >
-              Food Request
+              Request Food
             </button>
           </div>
         </div>
       </div>
-      {/* Open the modal using document.getElementById('ID').showModal() method */}
 
+      {/* Modal */}
       <dialog
         ref={requestFoodModal}
         className="modal modal-bottom sm:modal-middle"
       >
         <div className="modal-box">
-          <h3 className="font-bold text-lg ">Food Request Form</h3>
-          <form onSubmit={handleFoodReqSubmit} className="">
-            <label className="flex items-center">
-              {" "}
-              <FaLocationDot className="mr-2" size={20} />
-              Location
+          <h3 className="font-bold text-lg mb-3 text-[#fd7d07]">
+            Food Request Form
+          </h3>
+
+          <form onSubmit={handleFoodReqSubmit}>
+            {/* Location */}
+            <label className="flex items-center mb-1">
+              <FaLocationDot className="mr-2" size={18} /> Location
             </label>
             <input
-              className="mb-5 border w-full py-2 rounded-full px-4 focus:outline-none focus:ring-2 focus:ring-purple-500"
               name="location"
               type="text"
-              placeholder="Location"
+              placeholder="Enter your location"
+              required
+              className="mb-4 border w-full py-2 rounded-full px-4 focus:outline-none focus:ring-2 focus:ring-purple-500"
             />
-            <label className="flex items-center">
-              {" "}
-              <FaPhoneAlt className="mr-2" size={20} />
-              Contact
+
+            {/* Contact */}
+            <label className="flex items-center mb-1">
+              <FaPhoneAlt className="mr-2" size={18} /> Contact No.
             </label>
             <input
-              className="mb-5 border w-full py-2 rounded-full px-4 focus:outline-none focus:ring-2 focus:ring-purple-500"
               name="contact"
               type="text"
-              placeholder="Contact Number"
+              placeholder="Contact number"
+              required
+              className="mb-4 border w-full py-2 rounded-full px-4 focus:outline-none focus:ring-2 focus:ring-purple-500"
             />
-            <label className="flex items-center"> Why Need Food</label>
+
+            {/* Reason */}
+            <label className="flex items-center mb-1">Why Need Food</label>
             <textarea
-              name="textarea"
-              className="w-full h-32 p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
-              placeholder="Write your description..."
+              name="reason"
+              required
+              placeholder="Write your reason..."
+              className="w-full h-28 p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 mb-4"
             ></textarea>
-            <button type="submit" className="btn btn-primary">
-              Submit Request
-            </button>
+
+            <div className="flex justify-end gap-2">
+              <button type="submit" className="btn btn-primary">
+                Submit Request
+              </button>
+            </div>
           </form>
+
           <div className="modal-action">
             <form method="dialog">
               <button className="btn">Close</button>

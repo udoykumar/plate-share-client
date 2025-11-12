@@ -4,7 +4,7 @@ import { FaUtensils, FaSearch, FaHandHoldingHeart } from "react-icons/fa";
 const HowItWorks = () => {
   return (
     <section className="bg-base-200 py-16 px-6">
-      <div className="max-w-6xl mx-auto text-center">
+      <div className="container mx-auto text-center">
         <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-8">
           How It Works
         </h2>

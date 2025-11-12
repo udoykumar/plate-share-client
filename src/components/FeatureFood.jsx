@@ -26,7 +26,7 @@ const FeatureFood = () => {
   }
 
   return (
-    <div className="container mx-auto my-6 px-4">
+    <div className=" my-6 px-4">
       <h1 className="text-2xl font-bold ">Featured Foods</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">

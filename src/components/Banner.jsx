@@ -5,7 +5,6 @@ const Banner = () => {
     <section
       className={`relative w-full h-[80vh] mt-25 bg-cover bg-center bg-[url('/banner1.jpg')]`}
     >
-      {/* Content */}
       <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-6">
         <h1 className="text-4xl md:text-6xl font-bold text-white leading-tight">
           Discover Delicious Foods Near You
