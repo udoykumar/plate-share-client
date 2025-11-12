@@ -12,7 +12,7 @@ const Login = () => {
   const [show, setShow] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-  const { singInWithGoogle, singInUser, user } = use(AuthContext);
+  const { singInWithGoogle, singInUser } = use(AuthContext);
   // if (user) {
   //   navigate("/");
   // }

@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { FaLocationDot } from "react-icons/fa6";
 import { useLoaderData } from "react-router";
 import { AuthContext } from "../contexts/AuthContext";
+import { FaPhoneAlt } from "react-icons/fa";
 
 const FoodDetails = () => {
   const foods = useLoaderData();
@@ -11,12 +12,12 @@ const FoodDetails = () => {
   const { user } = use(AuthContext);
   console.log(foods);
   const {
+    _id,
     food_name,
     food_image,
     food_quantity,
     pickup_location,
     expire_date,
-    additional_notes,
     donator_name,
     donator_email,
     donator_image,
@@ -27,6 +28,30 @@ const FoodDetails = () => {
   };
   const handleFoodReqSubmit = (e) => {
     e.preventDefault();
+    const location = e.target.location.value;
+    const contact = e.target.contact.value;
+    const textarea = e.target.textarea.value;
+    const newFoodReq = {
+      _id: _id,
+      user_email: user.email,
+      user_name: user.displayName,
+      photoURL: user.photoURL,
+      status: "pending",
+      location: location,
+      contact: contact,
+      textarea: textarea,
+    };
+    fetch("http://localhost:3000/food-request", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(newFoodReq),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
   };
   return (
     <div className="min-h-[calc(100vh-100px)] bg-gray-50 py-8 mt-15">
@@ -152,6 +177,7 @@ const FoodDetails = () => {
             />
             <label className="flex items-center"> Why Need Food</label>
             <textarea
+              name="textarea"
               className="w-full h-32 p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
               placeholder="Write your description..."
             ></textarea>
