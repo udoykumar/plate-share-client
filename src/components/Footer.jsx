@@ -12,40 +12,14 @@ import {
   FaChevronRight,
 } from "react-icons/fa";
 import { GiCookingPot } from "react-icons/gi";
-// import { useTheme } from "../../context/ThemeContext";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
-  // const { isDarkMode } = useTheme();
 
   return (
     <footer className="relative mt-[0px] bg-black">
-      {/* Top wave shape */}
-      <div className="absolute top-0 left-0 w-full overflow-hidden leading-0 transform">
-        <svg
-          className="relative block w-full h-12 text-gray-900"
-          data-name="Layer 1"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 1200 120"
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
-            // className={`${isDarkMode ? "fill-gray-900" : "fill-gray-50"}`}
-          ></path>
-        </svg>
-      </div>
-      {/* ${
-          isDarkMode
-            ? "bg-gray-900"
-            : "bg-gradient-to-b from-gray-900 to-gray-800"
-        } */}
-
-      <div
-        className={`
-         
-         pt-16 pb-8`}
-      >
+      <div className="absolute top-0 left-0 w-full overflow-hidden leading-0 transform"></div>
+      <div className={`pt-16 pb-8`}>
         <div className="container mx-auto px-4">
           {/* Main footer content */}
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mb-12">
@@ -53,13 +27,11 @@ const Footer = () => {
             <div className="col-span-1 md:col-span-5">
               <div className="flex items-center mb-5">
                 <GiCookingPot className="text-3xl text-orange-500 mr-2" />
-                <h3 className="text-2xl font-bold text-white">RecipeBook</h3>
+                <h3 className="text-2xl font-bold text-white dark:text-white">
+                  Plate <span className="text-purple-500">Share</span>
+                </h3>
               </div>
-              <p className="text-gray-300 mb-6 leading-relaxed">
-                Discover and share delicious recipes from around the world.
-                Whether you're a beginner or a master chef, find inspiration for
-                your next culinary adventure in our growing collection.
-              </p>
+              <p className="text-gray-300 mb-6 leading-relaxed"></p>
               <div className="flex space-x-3">
                 <a
                   href="https://www.facebook.com"
@@ -71,7 +43,7 @@ const Footer = () => {
                   <FaFacebook size={18} />
                 </a>
                 <a
-                  href=""
+                  href="https://github.com"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-gray-700 hover:bg-gray-800 text-white p-2.5 rounded-lg transition-all transform hover:scale-110 flex items-center justify-center w-10 h-10 shadow-md"
@@ -80,7 +52,7 @@ const Footer = () => {
                   <FaGithub size={18} />
                 </a>
                 <a
-                  href=""
+                  href="https://www.instagram.com"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-gradient-to-r from-orange-600 to-amber-500 hover:from-orange-700 hover:to-amber-600 text-white p-2.5 rounded-lg transition-all transform hover:scale-110 flex items-center justify-center w-10 h-10 shadow-md"
@@ -89,7 +61,7 @@ const Footer = () => {
                   <FaInstagram size={18} />
                 </a>
                 <a
-                  href=""
+                  href="https://www.linkedin.com/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-orange-600 hover:bg-orange-700 text-white p-2.5 rounded-lg transition-all transform hover:scale-110 flex items-center justify-center w-10 h-10 shadow-md"
@@ -117,29 +89,38 @@ const Footer = () => {
                 </li>
                 <li className="transform hover:translate-x-2 transition-transform duration-300">
                   <Link
-                    to="/all_recipes"
+                    to="/availableFood"
                     className="text-gray-300 hover:text-orange-400 transition-colors flex items-center"
                   >
                     <FaChevronRight className="text-xs mr-2 text-orange-500" />{" "}
-                    All Recipes
+                    Available Food
                   </Link>
                 </li>
                 <li className="transform hover:translate-x-2 transition-transform duration-300">
                   <Link
-                    to="/add_recipes"
+                    to="/add-food"
                     className="text-gray-300 hover:text-orange-400 transition-colors flex items-center"
                   >
-                    <FaChevronRight className="text-xs mr-2 text-orange-500" />{" "}
-                    Add Recipe
+                    <FaChevronRight className="text-xs mr-2 text-orange-500" />
+                    Add Food
                   </Link>
                 </li>
                 <li className="transform hover:translate-x-2 transition-transform duration-300">
                   <Link
-                    to="/my_recipes"
+                    to="/manage-food"
                     className="text-gray-300 hover:text-orange-400 transition-colors flex items-center"
                   >
                     <FaChevronRight className="text-xs mr-2 text-orange-500" />{" "}
-                    My Recipes
+                    Manage My Foods
+                  </Link>
+                </li>
+                <li className="transform hover:translate-x-2 transition-transform duration-300">
+                  <Link
+                    to="/food-request"
+                    className="text-gray-300 hover:text-orange-400 transition-colors flex items-center"
+                  >
+                    <FaChevronRight className="text-xs mr-2 text-orange-500" />{" "}
+                    My Food Request
                   </Link>
                 </li>
 
@@ -217,7 +198,7 @@ const Footer = () => {
             <div className="flex flex-col md:flex-row justify-between items-center">
               <p className="text-gray-400 text-sm">
                 &copy; {currentYear}{" "}
-                <span className="text-orange-400">RecipeBook</span>. All rights
+                <span className="text-orange-400">Plate Share</span>. All rights
                 reserved.
               </p>
               <div className="flex flex-wrap justify-center md:justify-end space-x-4 mt-4 md:mt-0">
