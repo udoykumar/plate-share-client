@@ -3,19 +3,16 @@ import React from "react";
 const OurMission = () => {
   return (
     <section className="relative bg-gray-900 text-white py-24 overflow-hidden">
-      {/* Background Image */}
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{
           backgroundImage:
-            "url('https://i.ibb.co.com/5dPRcjn/compressed-vitaly-gariev-e-Ql-U4-7-PGHw-unsplash.jpg')",
+            "url('https://i.ibb.co.com/vxmwZRr6/our-mission.jpg')",
         }}
       ></div>
 
-      {/* Gradient Overlay */}
       <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/60 to-transparent"></div>
 
-      {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-10">
         <div
           initial={{ opacity: 0, y: 40 }}
@@ -62,7 +59,6 @@ const OurMission = () => {
         </div>
       </div>
 
-      {/* Bottom Gradient Accent */}
       <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-secondary to-accent"></div>
     </section>
   );

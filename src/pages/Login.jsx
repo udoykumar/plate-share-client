@@ -7,6 +7,7 @@ import { RiLockPasswordFill } from "react-icons/ri";
 import { AuthContext } from "../contexts/AuthContext";
 import { Link, useLocation, useNavigate } from "react-router";
 import { useState } from "react";
+import { FcGoogle } from "react-icons/fc";
 
 const Login = () => {
   const [show, setShow] = useState(false);
@@ -43,8 +44,8 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen justify-center items-center mt-15">
-      <div className="w-[400px]">
+    <div className="flex flex-col h-[70vh] justify-center items-center mt-15 ">
+      <div className="w-[400px] border-2 border-gray-500 p-9 rounded-md shadow-md">
         <form onSubmit={handleEmailPassLogin} className="max-w-[400px]">
           <label className="flex items-center">
             {" "}
@@ -86,8 +87,9 @@ const Login = () => {
         <hr className="mt-5 text-gray-400" />
         <button
           onClick={handleGoogleSingin}
-          className="px-5 py-2 bg-amber-500 w-full rounded-full text-white cursor-pointer mt-5"
+          className="px-5 py-2 bg-amber-500 w-full rounded-full text-white cursor-pointer mt-5 flex  justify-center items-center"
         >
+          <FcGoogle size={25} className="mr-2" />
           Login with Google
         </button>
         <Link to="/register">Register</Link>
