@@ -1,13 +1,12 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useRef, useEffect, useState } from "react";
 import { FaLocationDot } from "react-icons/fa6";
 import { FaPhoneAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { useLoaderData } from "react-router";
 import { AuthContext } from "../contexts/AuthContext";
 import { toast } from "react-toastify";
-import { useEffect } from "react";
-import { useState } from "react";
 import FoodRequestTable from "./FoodRequestTable";
+import { motion, AnimatePresence } from "framer-motion";
 
 const FoodDetails = () => {
   const foods = useLoaderData();
@@ -15,17 +14,18 @@ const FoodDetails = () => {
   const { user } = useContext(AuthContext);
   const [requestFood, setRequestFood] = useState([]);
   const [isOwner, setIsOwner] = useState(false);
+
   useEffect(() => {
     if (!foods?._id) return;
-
-    fetch(`http://localhost:3000/foods/food-request/${foods._id}`)
+    fetch(
+      `https://plate-share-server-mu.vercel.app/foods/food-request/${foods._id}`
+    )
       .then((res) => res.json())
       .then((data) => {
-        console.log("useeffect ", data);
         setRequestFood(data);
       });
   }, [foods._id]);
-  // console.log("food details", foods);
+
   const {
     _id,
     food_name,
@@ -38,13 +38,9 @@ const FoodDetails = () => {
     donator_image,
     food_status,
   } = foods;
-  console.log(donator_email);
+
   useEffect(() => {
-    if (user?.email === donator_email) {
-      setIsOwner(true);
-    } else {
-      setIsOwner(false);
-    }
+    setIsOwner(user?.email === donator_email);
   }, [user, donator_email]);
 
   const handleFoodRequestModal = () => {
@@ -53,7 +49,6 @@ const FoodDetails = () => {
 
   const handleFoodReqSubmit = (e) => {
     e.preventDefault();
-
     const location = e.target.location.value;
     const contact = e.target.contact.value;
     const reason = e.target.reason.value;
@@ -70,11 +65,9 @@ const FoodDetails = () => {
       createdAt: new Date(),
     };
 
-    fetch("http://localhost:3000/food-request", {
+    fetch("https://plate-share-server-mu.vercel.app/food-request", {
       method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
+      headers: { "content-type": "application/json" },
       body: JSON.stringify(newFoodReq),
     })
       .then((res) => res.json())
@@ -89,6 +82,12 @@ const FoodDetails = () => {
             timer: 1500,
           });
           e.target.reset();
+          // refresh request list
+          fetch(
+            `https://plate-share-server-mu.vercel.app/foods/food-request/${_id}`
+          )
+            .then((res) => res.json())
+            .then(setRequestFood);
         }
       })
       .catch((err) => {
@@ -99,8 +98,14 @@ const FoodDetails = () => {
 
   return (
     <div className="container mx-auto bg-gray-50 py-8 mt-15">
-      <div className="card lg:card-side bg-white rounded-0 overflow-hidden md:gap-5 lg:gap-0">
-        <figure className="w-full h-80 md:h-[500px] lg:h-full lg:w-[850px] rounded-2xl bg-amber-400">
+      {/* Animated Food Details Card */}
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="card lg:card-side bg-white rounded-0 overflow-hidden md:gap-5 lg:gap-0 shadow-md"
+      >
+        <figure className="w-full h-80 md:h-[500px] lg:h-full lg:w-[850px] rounded-2xl">
           <img
             src={food_image}
             alt={food_name}
@@ -109,7 +114,11 @@ const FoodDetails = () => {
         </figure>
 
         <div className="card-body flex flex-col justify-between p-3 w-full md:pl-10">
-          <div>
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.2, duration: 0.6 }}
+          >
             <h2 className="card-title text-3xl font-bold text-[#fd7d07] pb-2">
               {food_name}
             </h2>
@@ -152,89 +161,100 @@ const FoodDetails = () => {
               </div>
             </div>
 
-            <button
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               onClick={handleFoodRequestModal}
               className="btn btn-primary"
             >
               Request Food
-            </button>
-          </div>
+            </motion.button>
+          </motion.div>
         </div>
-      </div>
+      </motion.div>
 
+      {/* Modal with Motion Animation */}
       <dialog
         ref={requestFoodModal}
         className="modal modal-bottom sm:modal-middle"
       >
-        <div className="modal-box">
-          <h3 className="font-bold text-lg mb-3 text-[#fd7d07]">
-            Food Request Form
-          </h3>
-
-          <form onSubmit={handleFoodReqSubmit}>
-            {/* Location */}
-            <label className="flex items-center mb-1">
-              <FaLocationDot className="mr-2" size={18} /> Location
-            </label>
-            <input
-              name="location"
-              type="text"
-              placeholder="Enter your location"
-              required
-              className="mb-4 border w-full py-2 rounded-full px-4 focus:outline-none focus:ring-2 focus:ring-purple-500"
-            />
-
-            {/* Contact */}
-            <label className="flex items-center mb-1">
-              <FaPhoneAlt className="mr-2" size={18} /> Contact No.
-            </label>
-            <input
-              name="contact"
-              type="text"
-              placeholder="Contact number"
-              required
-              className="mb-4 border w-full py-2 rounded-full px-4 focus:outline-none focus:ring-2 focus:ring-purple-500"
-            />
-
-            {/* Reason */}
-            <label className="flex items-center mb-1">Why Need Food</label>
-            <textarea
-              name="reason"
-              required
-              placeholder="Write your reason..."
-              className="w-full h-28 p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 mb-4"
-            ></textarea>
-
-            <div className="flex justify-end gap-2">
-              <button type="submit" className="btn btn-primary">
-                Submit Request
-              </button>
-            </div>
-          </form>
-
-          <div className="modal-action">
-            <form method="dialog">
-              <button className="btn">Close</button>
-            </form>
-          </div>
-        </div>
-      </dialog>
-
-      <div>
-        {isOwner && (
-          <>
-            <h3 className="text-3xl font-bold text-center text-purple-500 py-4">
-              Request Food <span>({requestFood.length})</span>
+        <AnimatePresence>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            transition={{ duration: 0.3 }}
+            className="modal-box"
+          >
+            <h3 className="font-bold text-lg mb-3 text-[#fd7d07]">
+              Food Request Form
             </h3>
 
-            <FoodRequestTable
-              requestFood={requestFood}
-              setRequestFood={setRequestFood}
-              foodId={_id}
-            />
-          </>
-        )}
-      </div>
+            <form onSubmit={handleFoodReqSubmit}>
+              <label className="flex items-center mb-1">
+                <FaLocationDot className="mr-2" size={18} /> Location
+              </label>
+              <input
+                name="location"
+                type="text"
+                placeholder="Enter your location"
+                required
+                className="mb-4 border w-full py-2 rounded-full px-4 focus:outline-none focus:ring-2 focus:ring-purple-500"
+              />
+
+              <label className="flex items-center mb-1">
+                <FaPhoneAlt className="mr-2" size={18} /> Contact No.
+              </label>
+              <input
+                name="contact"
+                type="text"
+                placeholder="Contact number"
+                required
+                className="mb-4 border w-full py-2 rounded-full px-4 focus:outline-none focus:ring-2 focus:ring-purple-500"
+              />
+
+              <label className="flex items-center mb-1">Why Need Food</label>
+              <textarea
+                name="reason"
+                required
+                placeholder="Write your reason..."
+                className="w-full h-28 p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 mb-4"
+              ></textarea>
+
+              <div className="flex justify-end gap-2">
+                <button type="submit" className="btn btn-primary">
+                  Submit Request
+                </button>
+              </div>
+            </form>
+
+            <div className="modal-action">
+              <form method="dialog">
+                <button className="btn">Close</button>
+              </form>
+            </div>
+          </motion.div>
+        </AnimatePresence>
+      </dialog>
+
+      {/* Animated Table Section */}
+      {isOwner && (
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="mt-10"
+        >
+          <h3 className="text-3xl font-bold text-center text-purple-500 py-4">
+            Request Food <span>({requestFood.length})</span>
+          </h3>
+          <FoodRequestTable
+            requestFood={requestFood}
+            setRequestFood={setRequestFood}
+            foodId={_id}
+          />
+        </motion.div>
+      )}
     </div>
   );
 };

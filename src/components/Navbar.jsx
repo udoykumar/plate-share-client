@@ -1,201 +1,162 @@
-import React, { use, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, NavLink } from "react-router";
 import { MdOutlineClose } from "react-icons/md";
 import { CiMenuFries } from "react-icons/ci";
 import { AuthContext } from "../contexts/AuthContext";
 import { toast } from "react-toastify";
-import { useEffect } from "react";
 
 const Navbar = () => {
-  const { user, logout } = use(AuthContext);
+  const { user, logout } = useContext(AuthContext);
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    const data = document.querySelector("html");
-    data.setAttribute("data-theme", theme);
+    document.documentElement.setAttribute("data-theme", theme);
     localStorage.setItem("theme", theme);
   }, [theme]);
 
-  const handleTheme = (checked) => {
-    setTheme(checked ? "dark" : "light");
-  };
+  const handleTheme = (checked) => setTheme(checked ? "dark" : "light");
 
   const handleLogout = () => {
     logout()
-      .then(() => {
-        toast.success("Logout successful");
-      })
+      .then(() => toast.success("Logout successful"))
       .catch((error) => console.log(error));
   };
 
+  const navLinkClass = ({ isActive }) =>
+    `text-md font-medium transition-colors duration-300 ${
+      isActive
+        ? "py-2 px-3 rounded-md bg-purple-100 text-purple-500  transition"
+        : " py-2 px-3 rounded-md text-gray-800 dark:text-gray-200 hover:text-purple-500 hover:bg-purple-100 dark:hover:text-purple-400"
+    }`;
+
   return (
-    <div>
-      <div className="fixed top-0 left-0 z-50 w-full flex items-center justify-between px-6 md:px-16 lg:px-20 py-3 bg-white/70 backdrop-blur shadow-md">
-        <Link to="/" className="max-md:flex-1">
-          <h1 className="text-2xl font-bold">
-            Food <span className="text-purple-500">Sharing</span>
-          </h1>
-        </Link>
+    <div
+      className={`fixed top-0 left-0 z-50 w-full flex items-center justify-between px-6 md:px-16 py-3 bg-white/70 dark:bg-gray-900/80 backdrop-blur shadow-md transition${
+        isOpen ? "max-w-full" : "max-w-0"
+      }`}
+    >
+      <Link to="/" className="max-md:flex-1">
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+          Food <span className="text-purple-500">Sharing</span>
+        </h1>
+      </Link>
 
-        <div
-          className={`max-md:absolute max-md:top-0 max-md:left-0 max-md:font-sm z-50 max-md:text-[10px] flex flex-col md:flex-row items-center max-md:justify-center gap-8 md:px-8 py-3 max-md:h-screen md:rounded-full backdrop-blur bg-black/60 md:bg-white/10 md:border border-gray-300/20 overflow-hidden transition-[width] duration-300 ${
-            isOpen ? "max-md:w-full text-white" : "max-md:w-0"
+      <div
+        className={`max-md:absolute max-md:top-0 max-md:left-0 z-40 flex flex-col md:flex-row items-center gap-8 md:static 
+           dark:bg-gray-800/90 max-md:h-screen max-md:w-full md:w-auto px-6 py-6 md:p-0
+          transition-all duration-300 ease-in-out ${
+            isOpen
+              ? "max-md:opacity-100"
+              : "max-md:opacity-0 max-md:pointer-events-none"
           }`}
-        >
-          <MdOutlineClose
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden absolute top-6 right-6 w-6 h-6 cursor-pointer"
-          />
-
-          <NavLink
-            className={`
-              ({ isActive }) =>
-              isActive
-                ? "text-purple-500 font-semibold"
-                : "text-black hover:text-purple-400 " text-xl`}
-            onClick={() => {
-              scrollTo(0, 0);
-              setIsOpen(false);
-            }}
-            to="/"
-          >
-            Home
-          </NavLink>
-
-          <NavLink
-            className={`
-              ({ isActive }) =>
-              isActive
-                ? "text-purple-500 font-semibold"
-                : "text-black hover:text-purple-400"
-              text-xl`}
-            onClick={() => {
-              scrollTo(0, 0);
-              setIsOpen(false);
-            }}
-            to="/availableFood"
-          >
-            Available Food
-          </NavLink>
-        </div>
-
-        <div className="flex items-center gap-6 relative">
-          {user ? (
-            <div className="relative">
-              <img
-                src={user.photoURL}
-                alt={user.displayName}
-                className="w-10 h-10 rounded-full cursor-pointer"
-                onClick={() => setDropdownOpen(!dropdownOpen)}
-              />
-
-              {dropdownOpen && (
-                <div
-                  className="
-      absolute right-0 top-12 min-w-60 
-      bg-white dark:bg-gray-800 
-      text-gray-800 dark:text-gray-200 
-      shadow-xl rounded-lg p-4 
-      border border-gray-200 dark:border-gray-700 
-      transition-all duration-300
-    "
-                >
-                  <p className="mb-3 font-semibold text-center">
-                    {user.displayName || "User"}
-                  </p>
-                  <div className="w-[10px]">
-                    <p className="text-wrap mb-3 font-semibold text-center">
-                      {user.email || "email"}
-                    </p>
-                  </div>
-
-                  <div className="flex flex-col gap-2 text-sm">
-                    <Link
-                      to="/add-food"
-                      onClick={() => setDropdownOpen(false)}
-                      className="
-          py-2 px-3 rounded-md 
-          hover:bg-purple-100 dark:hover:bg-purple-700 
-          transition
-        "
-                    >
-                      Add Food
-                    </Link>
-
-                    <Link
-                      to="/manage-food"
-                      onClick={() => setDropdownOpen(false)}
-                      className="
-          py-2 px-3 rounded-md 
-          hover:bg-purple-100 dark:hover:bg-purple-700 
-          transition
-        "
-                    >
-                      Manage My Foods
-                    </Link>
-
-                    <Link
-                      to="/food-request"
-                      onClick={() => setDropdownOpen(false)}
-                      className="
-          py-2 px-3 rounded-md 
-          hover:bg-purple-100 dark:hover:bg-purple-700 
-          transition
-        "
-                    >
-                      My Food Requests
-                    </Link>
-                  </div>
-
-                  {/* Dark Mode Toggle */}
-                  <div
-                    className="
-        flex items-center justify-between 
-        mt-4 pt-3 
-        border-t border-gray-200 dark:border-gray-700
-      "
-                  >
-                    <span>Dark Mode</span>
-                    <input
-                      type="checkbox"
-                      className="toggle"
-                      checked={theme === "dark"}
-                      onChange={(e) => handleTheme(e.target.checked)}
-                    />
-                  </div>
-
-                  <button
-                    onClick={handleLogout}
-                    className="
-        mt-4 w-full py-2 rounded-md 
-        bg-purple-500 text-white 
-        hover:bg-purple-600 
-        dark:bg-purple-600 dark:hover:bg-purple-700
-        transition
-      "
-                  >
-                    Logout
-                  </button>
-                </div>
-              )}
-            </div>
-          ) : (
-            <Link
-              to="/login"
-              className="px-4 py-1 sm:px-7 sm:py-2 bg-purple-500 text-white hover:bg-purple-600 transition rounded-full font-medium cursor-pointer"
-            >
-              Login
-            </Link>
-          )}
-        </div>
-
-        <CiMenuFries
-          onClick={() => setIsOpen(!isOpen)}
-          className="max-md:ml-4 md:hidden w-8 h-8 cursor-pointer"
+      >
+        <MdOutlineClose
+          onClick={() => setIsOpen(false)}
+          className="md:hidden absolute top-6 right-6 w-6 h-6 cursor-pointer text-gray-700 dark:text-gray-200"
         />
+
+        <NavLink
+          to="/"
+          className={navLinkClass}
+          onClick={() => setIsOpen(false)}
+        >
+          Home
+        </NavLink>
+
+        <NavLink
+          to="/availableFood"
+          className={navLinkClass}
+          onClick={() => setIsOpen(false)}
+        >
+          Available Food
+        </NavLink>
       </div>
+
+      <div className="flex items-center gap-6 relative">
+        {user ? (
+          <div className="relative">
+            <img
+              src={user.photoURL}
+              alt={user.displayName}
+              className="w-10 h-10 rounded-full cursor-pointer border-2 border-purple-400"
+              onClick={() => setDropdownOpen(!dropdownOpen)}
+            />
+
+            {dropdownOpen && (
+              <div
+                className="absolute right-0 top-12 min-w-60 bg-white dark:bg-gray-800 
+                text-gray-800 dark:text-gray-200 shadow-xl rounded-lg p-4 border border-gray-200 dark:border-gray-700"
+              >
+                <p className="mb-3 font-semibold text-center">
+                  {user.displayName || "User"}
+                </p>
+                <p className="text-xs mb-3 text-center text-gray-500 dark:text-gray-400 break-words">
+                  {user.email}
+                </p>
+
+                <div className="flex flex-col gap-2 text-sm">
+                  <NavLink
+                    to="/add-food"
+                    onClick={() => setDropdownOpen(false)}
+                    className={navLinkClass}
+                  >
+                    Add Food
+                  </NavLink>
+
+                  <NavLink
+                    to="/manage-food"
+                    onClick={() => setDropdownOpen(false)}
+                    className={navLinkClass}
+                  >
+                    Manage My Foods
+                  </NavLink>
+
+                  <NavLink
+                    to="/food-request"
+                    onClick={() => setDropdownOpen(false)}
+                    className={navLinkClass}
+                  >
+                    My Food Requests
+                  </NavLink>
+                </div>
+
+                {/* Dark Mode Toggle */}
+                <div className="flex items-center justify-between mt-4 pt-3 border-t border-gray-200 dark:border-gray-700">
+                  <span>Dark Mode</span>
+                  <input
+                    type="checkbox"
+                    className="toggle toggle-sm"
+                    checked={theme === "dark"}
+                    onChange={(e) => handleTheme(e.target.checked)}
+                  />
+                </div>
+
+                <button
+                  onClick={handleLogout}
+                  className="mt-4 w-full py-2 rounded-md bg-purple-500 hover:bg-purple-600 text-white transition"
+                >
+                  Logout
+                </button>
+              </div>
+            )}
+          </div>
+        ) : (
+          <Link
+            to="/login"
+            className="px-5 py-2 bg-purple-500 hover:bg-purple-600 text-white rounded-full font-medium transition"
+          >
+            Login
+          </Link>
+        )}
+      </div>
+
+      {/* Menu Icon (mobile) */}
+      <CiMenuFries
+        onClick={() => setIsOpen(!isOpen)}
+        className="md:hidden w-8 h-8 cursor-pointer text-gray-700 dark:text-gray-200"
+      />
     </div>
   );
 };

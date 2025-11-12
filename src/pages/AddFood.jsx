@@ -1,10 +1,10 @@
-import { useContext } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
+import { use } from "react";
 
 const AddFood = () => {
-  const { user } = useContext(AuthContext);
+  const { user } = use(AuthContext);
   const navigate = useNavigate();
   const handleAddFood = async (e) => {
     e.preventDefault();
@@ -12,7 +12,7 @@ const AddFood = () => {
 
     const newFood = {
       food_name: form.food_name.value,
-      food_image: form.food_image.value, // directly use image link
+      food_image: form.food_image.value,
       food_quantity: form.food_quantity.value,
       pickup_location: form.pickup_location.value,
       expire_date: form.expire_date.value,
@@ -20,15 +20,18 @@ const AddFood = () => {
       donator_name: user?.displayName,
       donator_email: user?.email,
       donator_image: user?.photoURL,
-      food_status: "Available", // default
+      food_status: "Available",
     };
 
     try {
-      const res = await fetch("http://localhost:3000/foods", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newFood),
-      });
+      const res = await fetch(
+        "https://plate-share-server-mu.vercel.app/foods",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(newFood),
+        }
+      );
 
       if (res.ok) {
         toast.success("Food added successfully!");
@@ -44,7 +47,7 @@ const AddFood = () => {
   };
 
   return (
-    <div className="container mx-auto bg-white shadow p-6 rounded-xl my-10">
+    <div className="container mx-auto dark:bg-white shadow p-6 rounded-xl mt-20  w-[500px] ">
       <h1 className="text-3xl font-bold text-purple-600 mb-6 text-center">
         Add Food
       </h1>

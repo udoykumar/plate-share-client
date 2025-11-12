@@ -3,7 +3,7 @@ import Swal from "sweetalert2";
 
 const FoodRequestTable = ({ requestFood, setRequestFood, foodId }) => {
   const handleRequestAction = (id, action) => {
-    fetch(`http://localhost:3000/food-request/${id}`, {
+    fetch(`https://plate-share-server-mu.vercel.app/food-request/${id}`, {
       method: "PATCH",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({ status: action }),
@@ -19,14 +19,16 @@ const FoodRequestTable = ({ requestFood, setRequestFood, foodId }) => {
           });
 
           if (action === "accepted") {
-            fetch(`http://localhost:3000/foods/${foodId}`, {
+            fetch(`https://plate-share-server-mu.vercel.app/foods/${foodId}`, {
               method: "PATCH",
               headers: { "content-type": "application/json" },
               body: JSON.stringify({ food_status: "donated" }),
             });
           }
 
-          fetch(`http://localhost:3000/foods/food-request/${foodId}`)
+          fetch(
+            `https://plate-share-server-mu.vercel.app/foods/food-request/${foodId}`
+          )
             .then((res) => res.json())
             .then((data) => setRequestFood(data));
         }

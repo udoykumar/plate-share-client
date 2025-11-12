@@ -5,10 +5,8 @@ const HowItWorks = () => {
   return (
     <section className="bg-base-200 py-16 px-6">
       <div className="container mx-auto text-center">
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-8">
-          How It Works
-        </h2>
-        <p className="text-base-content/70 mb-12 max-w-2xl mx-auto">
+        <h2 className="title font-bebas ">How It Works</h2>
+        <p className="text font-popins mb-12 max-w-2xl mx-auto">
           Sharing food has never been easier! Follow these three simple steps to
           connect with the community and reduce food waste.
         </p>
@@ -18,8 +16,8 @@ const HowItWorks = () => {
             <div className="text-5xl text-primary mb-4 mx-auto">
               <FaUtensils />
             </div>
-            <h3 className="text-xl font-semibold mb-2">1. Post Food</h3>
-            <p className="text-base-content/70">
+            <h3 className="subtitle ">1. Post Food</h3>
+            <p className="text font-popins">
               Donators can easily post available food with details like
               quantity, pickup time, and location.
             </p>
@@ -29,8 +27,8 @@ const HowItWorks = () => {
             <div className="text-5xl text-primary mb-4 mx-auto">
               <FaSearch />
             </div>
-            <h3 className="text-xl font-semibold mb-2">2. Find Food</h3>
-            <p className="text-base-content/70">
+            <h3 className="subtitle">2. Find Food</h3>
+            <p className="text font-popins">
               Hungry members or organizations can browse food listings nearby.
             </p>
           </div>
@@ -39,8 +37,8 @@ const HowItWorks = () => {
             <div className="text-5xl text-primary mb-4 mx-auto">
               <FaHandHoldingHeart />
             </div>
-            <h3 className="text-xl font-semibold mb-2">3. Collect Food</h3>
-            <p className="text-base-content/70">
+            <h3 className="subtitle">3. Collect Food</h3>
+            <p className="text font-popins ">
               Pick up the food and share the joy of giving! Help reduce waste
               and feed more people.
             </p>

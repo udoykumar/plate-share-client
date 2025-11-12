@@ -2,7 +2,7 @@ import React from "react";
 
 const OurMission = () => {
   return (
-    <section className="relative bg-gray-900 text-white py-24 overflow-hidden">
+    <section className="relative bg-gray-900 text-white py-24 overflow-hidden my-6">
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{
@@ -21,14 +21,14 @@ const OurMission = () => {
           viewport={{ once: true }}
           className="md:w-2/3"
         >
-          <h2 className="text-4xl md:text-5xl font-extrabold mb-6 leading-tight">
+          <h2 className="text-4xl md:text-5xl font-extrabold mb-6 leading-tight font-bebas">
             Our Mission:{" "}
-            <span className="bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent ">
               Sharing Food, Spreading Smiles
             </span>
           </h2>
 
-          <p className="text-lg text-gray-200/90 mb-10 leading-relaxed">
+          <p className="text-lg text-gray-200/90 mb-10 leading-relaxed font-popins">
             We’re on a mission to reduce food waste and hunger by connecting
             those with extra food to those who need it most. Through community
             compassion and care, we strive to create a world where no meal is
@@ -49,10 +49,10 @@ const OurMission = () => {
                 viewport={{ once: true }}
                 className="bg-white/10 backdrop-blur-md p-6 rounded-2xl shadow-xl hover:bg-white/20 hover:scale-[1.03] transition-transform duration-300"
               >
-                <h3 className="bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent font-bold text-3xl mb-2">
+                <h3 className="bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent font-bold text-3xl mb-2 font-popins">
                   {item.number}
                 </h3>
-                <p className="text-gray-200">{item.label}</p>
+                <p className="text-gray-200 font-popins">{item.label}</p>
               </div>
             ))}
           </div>

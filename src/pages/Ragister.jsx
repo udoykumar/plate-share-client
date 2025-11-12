@@ -60,7 +60,7 @@ const Ragister = () => {
         };
         navigate(location.state);
         console.log(result);
-        fetch("http://localhost:3000/users", {
+        fetch("https://plate-share-server-mu.vercel.app/users", {
           method: "POST",
           headers: {
             "content-type": "application/json",

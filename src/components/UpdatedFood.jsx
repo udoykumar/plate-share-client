@@ -8,7 +8,7 @@ const UpdateFood = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`http://localhost:3000/foods/${id}`)
+    fetch(`https://plate-share-server-mu.vercel.app/foods/${id}`)
       .then((res) => res.json())
       .then((data) => setFood(data));
   }, [id]);
@@ -25,7 +25,7 @@ const UpdateFood = () => {
       additional_notes: form.additional_notes.value,
     };
 
-    fetch(`http://localhost:3000/foods/${id}`, {
+    fetch(`https://plate-share-server-mu.vercel.app/foods/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(updatedFood),

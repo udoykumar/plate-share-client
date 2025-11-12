@@ -1,16 +1,19 @@
-import React, { useEffect, useState, use } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Swal from "sweetalert2";
 import { AuthContext } from "../contexts/AuthContext";
 import { useNavigate } from "react-router";
+import { motion } from "framer-motion";
 
 const ManageMyFoods = () => {
-  const { user } = use(AuthContext);
+  const { user } = useContext(AuthContext);
   const [foods, setFoods] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (user?.email) {
-      fetch(`http://localhost:3000/foods?email=${user.email}`)
+      fetch(
+        `https://plate-share-server-mu.vercel.app/foods?email=${user.email}`
+      )
         .then((res) => res.json())
         .then((data) => setFoods(data));
     }
@@ -27,7 +30,7 @@ const ManageMyFoods = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/foods/${id}`, {
+        fetch(`https://plate-share-server-mu.vercel.app/foods/${id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())
@@ -40,14 +43,14 @@ const ManageMyFoods = () => {
   };
 
   return (
-    <div className="min-h-screen py-10 px-4 md:px-12 bg-gray-50 mt-15">
-      <h1 className="text-3xl font-bold text-center mb-8 text-purple-600">
+    <div className="min-h-screen py-10 px-4 md:px-12  dark:bg-gray-900 mt-15 transition-colors duration-300">
+      <h1 className="title font-bebas text-purple-600 dark:text-purple-400 mb-6">
         Manage My Foods
       </h1>
 
       <div className="overflow-x-auto">
-        <table className="table w-full bg-white rounded-xl shadow-md">
-          <thead className="bg-purple-100 text-gray-700">
+        <table className="table w-full bg-white dark:bg-gray-800 rounded-xl shadow-md transition-colors duration-300">
+          <thead className="bg-purple-100 dark:bg-purple-700 text-gray-700 dark:text-gray-200">
             <tr>
               <th>#</th>
               <th>Image</th>
@@ -61,7 +64,13 @@ const ManageMyFoods = () => {
 
           <tbody>
             {foods.map((food, index) => (
-              <tr key={food._id} className="hover:bg-gray-50">
+              <motion.tr
+                key={food._id}
+                className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-300"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: index * 0.05 }}
+              >
                 <td>{index + 1}</td>
                 <td>
                   <img
@@ -70,25 +79,37 @@ const ManageMyFoods = () => {
                     className="w-16 h-16 rounded-lg object-cover"
                   />
                 </td>
-                <td className="font-semibold">{food.food_name}</td>
-                <td>{food.food_quantity}</td>
-                <td>{food.expire_date}</td>
-                <td>{food.food_status}</td>
-                <td className="flex flex-col md:flex-row gap-2">
-                  <button
+                <td className="font-semibold text-gray-700 dark:text-gray-200">
+                  {food.food_name}
+                </td>
+                <td className="text-gray-700 dark:text-gray-300">
+                  {food.food_quantity}
+                </td>
+                <td className="text-gray-700 dark:text-gray-300">
+                  {food.expire_date}
+                </td>
+                <td className="text-gray-700 dark:text-gray-300">
+                  {food.food_status}
+                </td>
+                <td className="flex flex-col md:flex-row gap-2 mt-4">
+                  <motion.button
                     onClick={() => navigate(`/update-food/${food._id}`)}
                     className="bg-purple-500 hover:bg-purple-600 text-white px-3 py-1 rounded-md"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                   >
                     Update
-                  </button>
-                  <button
+                  </motion.button>
+                  <motion.button
                     onClick={() => handleDelete(food._id)}
                     className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                   >
                     Delete
-                  </button>
+                  </motion.button>
                 </td>
-              </tr>
+              </motion.tr>
             ))}
           </tbody>
         </table>
