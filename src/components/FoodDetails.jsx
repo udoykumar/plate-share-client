@@ -14,6 +14,7 @@ const FoodDetails = () => {
   const requestFoodModal = useRef(null);
   const { user } = useContext(AuthContext);
   const [requestFood, setRequestFood] = useState([]);
+  const [isOwner, setIsOwner] = useState(false);
   useEffect(() => {
     if (!foods?._id) return;
 
@@ -24,7 +25,7 @@ const FoodDetails = () => {
         setRequestFood(data);
       });
   }, [foods._id]);
-  console.log("food details", foods);
+  // console.log("food details", foods);
   const {
     _id,
     food_name,
@@ -37,6 +38,14 @@ const FoodDetails = () => {
     donator_image,
     food_status,
   } = foods;
+  console.log(donator_email);
+  useEffect(() => {
+    if (user?.email === donator_email) {
+      setIsOwner(true);
+    } else {
+      setIsOwner(false);
+    }
+  }, [user, donator_email]);
 
   const handleFoodRequestModal = () => {
     requestFoodModal.current.showModal();
@@ -212,11 +221,19 @@ const FoodDetails = () => {
       </dialog>
 
       <div>
-        <h3 className="text-3xl font-bold text-center text-purple-500 py-4">
-          Request Food <span>({requestFood.length})</span>
-        </h3>
+        {isOwner && (
+          <>
+            <h3 className="text-3xl font-bold text-center text-purple-500 py-4">
+              Request Food <span>({requestFood.length})</span>
+            </h3>
 
-        <FoodRequestTable requestFood={requestFood} />
+            <FoodRequestTable
+              requestFood={requestFood}
+              setRequestFood={setRequestFood}
+              foodId={_id}
+            />
+          </>
+        )}
       </div>
     </div>
   );
