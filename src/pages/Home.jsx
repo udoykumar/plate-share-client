@@ -1,12 +1,16 @@
 import React from "react";
 import Banner from "../components/Banner";
 import FeatureFood from "../components/FeatureFood";
+import HowItWorks from "../components/HowItWorks";
+import OurMission from "../components/OurMission";
 
 const Home = () => {
   return (
     <div>
       <Banner />
       <FeatureFood />
+      <HowItWorks />
+      <OurMission />
     </div>
   );
 };

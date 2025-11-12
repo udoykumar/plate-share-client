@@ -1,10 +1,11 @@
 import { useContext } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router";
 
 const AddFood = () => {
   const { user } = useContext(AuthContext);
-
+  const navigate = useNavigate();
   const handleAddFood = async (e) => {
     e.preventDefault();
     const form = e.target;
@@ -32,6 +33,7 @@ const AddFood = () => {
       if (res.ok) {
         toast.success("Food added successfully!");
         form.reset();
+        navigate("/availableFood");
       } else {
         toast.error("Failed to add food!");
       }
