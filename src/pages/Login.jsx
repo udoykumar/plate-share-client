@@ -24,6 +24,7 @@ const Login = () => {
 
     singInUser(email, password)
       .then((result) => {
+        console.log(location.state);
         navigate(location.state);
         console.log(result);
       })
@@ -36,6 +37,7 @@ const Login = () => {
     singInWithGoogle()
       .then((result) => {
         console.log(result);
+        console.log(location.state);
         navigate(location.state);
       })
       .catch((error) => {

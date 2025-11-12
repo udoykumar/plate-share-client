@@ -1,15 +1,30 @@
 import React, { useContext, useRef } from "react";
 import { FaLocationDot } from "react-icons/fa6";
 import { FaPhoneAlt } from "react-icons/fa";
-
+import Swal from "sweetalert2";
 import { useLoaderData } from "react-router";
 import { AuthContext } from "../contexts/AuthContext";
+import { toast } from "react-toastify";
+import { useEffect } from "react";
+import { useState } from "react";
+import FoodRequestTable from "./FoodRequestTable";
 
 const FoodDetails = () => {
   const foods = useLoaderData();
   const requestFoodModal = useRef(null);
   const { user } = useContext(AuthContext);
+  const [requestFood, setRequestFood] = useState([]);
+  useEffect(() => {
+    if (!foods?._id) return;
 
+    fetch(`http://localhost:3000/foods/food-request/${foods._id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("useeffect ", data);
+        setRequestFood(data);
+      });
+  }, [foods._id]);
+  console.log("food details", foods);
   const {
     _id,
     food_name,
@@ -23,12 +38,10 @@ const FoodDetails = () => {
     food_status,
   } = foods;
 
-  // ✅ open modal
   const handleFoodRequestModal = () => {
     requestFoodModal.current.showModal();
   };
 
-  // ✅ handle form submit
   const handleFoodReqSubmit = (e) => {
     e.preventDefault();
 
@@ -37,7 +50,7 @@ const FoodDetails = () => {
     const reason = e.target.reason.value;
 
     const newFoodReq = {
-      food_id: _id, // keep it descriptive for backend
+      food_id: _id,
       user_email: user?.email,
       user_name: user?.displayName,
       photoURL: user?.photoURL,
@@ -57,20 +70,26 @@ const FoodDetails = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log("Request saved:", data);
-        alert("✅ Food request submitted successfully!");
-        e.target.reset();
-        requestFoodModal.current.close();
+        if (data.insertedId) {
+          requestFoodModal.current.close();
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Your request has been saved",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          e.target.reset();
+        }
       })
       .catch((err) => {
         console.error(err);
-        alert("❌ Failed to submit food request");
+        toast.warning(err);
       });
   };
 
   return (
     <div className="container mx-auto bg-gray-50 py-8 mt-15">
-      {/* Food Card */}
       <div className="card lg:card-side bg-white rounded-0 overflow-hidden md:gap-5 lg:gap-0">
         <figure className="w-full h-80 md:h-[500px] lg:h-full lg:w-[850px] rounded-2xl bg-amber-400">
           <img
@@ -107,7 +126,6 @@ const FoodDetails = () => {
               </p>
             </div>
 
-            {/* Donator Info */}
             <div className="mb-6 border-t pt-4 border-[#fd7e075d]">
               <h3 className="font-semibold mb-2 text-[#fd7d07] text-xl">
                 Donator Information
@@ -125,7 +143,6 @@ const FoodDetails = () => {
               </div>
             </div>
 
-            {/* Request Button */}
             <button
               onClick={handleFoodRequestModal}
               className="btn btn-primary"
@@ -136,7 +153,6 @@ const FoodDetails = () => {
         </div>
       </div>
 
-      {/* Modal */}
       <dialog
         ref={requestFoodModal}
         className="modal modal-bottom sm:modal-middle"
@@ -194,6 +210,14 @@ const FoodDetails = () => {
           </div>
         </div>
       </dialog>
+
+      <div>
+        <h3 className="text-3xl font-bold text-center text-purple-500 py-4">
+          Request Food <span>({requestFood.length})</span>
+        </h3>
+
+        <FoodRequestTable requestFood={requestFood} />
+      </div>
     </div>
   );
 };
