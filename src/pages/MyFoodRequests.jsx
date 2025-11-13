@@ -9,7 +9,10 @@ const MyFoodRequests = () => {
     if (!user?.email) return;
     fetch(`https://plate-share-server-mu.vercel.app/food-request/${user.email}`)
       .then((res) => res.json())
-      .then((data) => setMyRequests(data))
+      .then((data) => {
+        setMyRequests(data);
+        console.log(data);
+      })
       .catch((err) => console.error(err));
   }, [user?.email]);
 
@@ -27,12 +30,13 @@ const MyFoodRequests = () => {
             <table className="table w-full border">
               <thead className="bg-purple-500 text-white">
                 <tr>
-                  <th>Food ID</th>
                   <th>Food</th>
+                  <th>Email</th>
                   <th>Location</th>
                   <th>Contact</th>
                   <th>Reason</th>
                   <th>Status</th>
+                  <th>Delete</th>
                 </tr>
               </thead>
               <tbody className="dark:bg-black">
@@ -47,7 +51,7 @@ const MyFoodRequests = () => {
                         />
                       </div>
                     </td>
-                    <td>{req.food_id}</td>
+                    <td>{req.user_email}</td>
                     <td>{req.location}</td>
                     <td>{req.contact}</td>
                     <td className="max-w-[200px] h-[60px] overflow-hidden break-words whitespace-pre-line">
@@ -68,6 +72,7 @@ const MyFoodRequests = () => {
                         {req.status}
                       </span>
                     </td>
+                    <td className="badge badge-error mt-7">Delete</td>
                   </tr>
                 ))}
               </tbody>

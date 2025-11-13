@@ -25,6 +25,14 @@ const Ragister = () => {
     const password = e.target.password?.value;
     const photoURL = e.target.photoURL?.value;
     console.log({ name, email, password, photoURL });
+
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
+    if (!passwordRegex.test(password)) {
+      toast.error(
+        "Password must have:\n- At least one uppercase letter\n- At least one lowercase letter\n- Minimum 6 characters"
+      );
+      return;
+    }
     createUser(email, password)
       .then((result) => {
         console.log(result);

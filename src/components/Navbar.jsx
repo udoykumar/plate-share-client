@@ -34,13 +34,11 @@ const Navbar = () => {
 
   return (
     <div
-      className={`fixed top-0 left-0 z-50 w-full flex items-center justify-between px-6 md:px-16 py-3 bg-white/70 dark:bg-gray-900/80 backdrop-blur shadow-md transition${
-        isOpen ? "max-w-full" : "max-w-0"
-      }`}
+      className={`fixed top-0 left-0 z-50 w-full flex items-center justify-between px-6 md:px-16 py-3 bg-white/70 dark:bg-gray-900/80 backdrop-blur shadow-md transition`}
     >
       <Link to="/" className="max-md:flex-1">
         <div className="flex items-center">
-          <img className="w-15 h-15 rounded-fulls" src={logo} alt="" />
+          <img className="w-15 h-10 rounded-fulls" src={logo} alt="" />
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
             Food <span className="text-purple-500">Sharing</span>
           </h1>
@@ -49,10 +47,10 @@ const Navbar = () => {
 
       <div
         className={`max-md:absolute max-md:top-0 max-md:left-0 z-40 flex flex-col md:flex-row items-center gap-8 md:static 
-           dark:bg-gray-800/90 max-md:h-screen max-md:w-full md:w-auto px-6 py-6 md:p-0
+           dark:bg-gray-800/90 max-md:h-90 md:hidden max-md:w-60 md:w-auto px-6 py-6 md:p-0
           transition-all duration-300 ease-in-out ${
             isOpen
-              ? "max-md:opacity-100"
+              ? "max-md:opacity-100 bg-white/20 mt-20"
               : "max-md:opacity-0 max-md:pointer-events-none"
           }`}
       >

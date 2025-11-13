@@ -35,7 +35,7 @@ const Footer = () => {
 
   return (
     <motion.footer
-      className="relative mt-[0px] bg-black font-popins"
+      className="relative mt-[0px] bg-black/80 font-popins"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true }}
@@ -55,7 +55,11 @@ const Footer = () => {
               variants={fadeInUp}
             >
               <div className="flex items-center mb-5">
-                <GiCookingPot className="text-3xl text-orange-500 mr-2" />
+                <img
+                  className="w-15 h-15 mr-2 rounded-full"
+                  src={logo}
+                  alt=""
+                />
                 <h3 className="text-2xl font-bold text-white dark:text-white">
                   Plate <span className="text-purple-500">Share</span>
                 </h3>

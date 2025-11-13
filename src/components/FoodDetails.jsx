@@ -82,7 +82,7 @@ const FoodDetails = () => {
             timer: 1500,
           });
           e.target.reset();
-          // refresh request list
+
           fetch(
             `https://plate-share-server-mu.vercel.app/foods/food-request/${_id}`
           )
@@ -98,7 +98,6 @@ const FoodDetails = () => {
 
   return (
     <div className="container mx-auto py-8 mt-15">
-      {/* Animated Food Details Card */}
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}

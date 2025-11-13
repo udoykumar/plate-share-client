@@ -8,7 +8,7 @@ import { AuthContext } from "../contexts/AuthContext";
 import { Link, useLocation, useNavigate } from "react-router";
 import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
-
+import { toast } from "react-toastify";
 const Login = () => {
   const [show, setShow] = useState(false);
   const location = useLocation();
@@ -22,6 +22,14 @@ const Login = () => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
+
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
+    if (!passwordRegex.test(password)) {
+      toast.error(
+        "Password must have:\n- At least one uppercase letter\n- At least one lowercase letter\n- Minimum 6 characters"
+      );
+      return;
+    }
 
     singInUser(email, password)
       .then((result) => {
