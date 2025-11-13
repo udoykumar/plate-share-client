@@ -94,7 +94,14 @@ const Login = () => {
           <FcGoogle size={25} className="mr-2" />
           Login with Google
         </button>
-        <Link to="/register">Register</Link>
+        <div className="mt-5">
+          <Link
+            className="text-lg hover:underline text-teal-400 "
+            to="/register"
+          >
+            Create new account Register
+          </Link>
+        </div>
       </div>
     </div>
   );

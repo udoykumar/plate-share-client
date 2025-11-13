@@ -4,7 +4,7 @@ import { AuthContext } from "../contexts/AuthContext";
 const MyFoodRequests = () => {
   const { user } = useContext(AuthContext);
   const [myRequests, setMyRequests] = useState([]);
-
+  const [food, setFood] = useState([]);
   useEffect(() => {
     if (!user?.email) return;
 
@@ -13,6 +13,15 @@ const MyFoodRequests = () => {
       .then((data) => setMyRequests(data))
       .catch((err) => console.error(err));
   }, [user?.email]);
+
+  useEffect(() => {
+    fetch(`http://localhost:3000/foods/${myRequests.food_id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setFood(data);
+        console.log(data);
+      });
+  }, [myRequests.food_id]);
 
   return (
     <div className="px-4 md:px-12  min-h-screen mt-15">
@@ -26,9 +35,10 @@ const MyFoodRequests = () => {
         ) : (
           <div className="overflow-x-auto">
             <table className="table w-full border">
-              <thead className="bg-[#fd7d07] text-white">
+              <thead className="bg-purple-500 text-white">
                 <tr>
                   <th>Food ID</th>
+                  <th>Food</th>
                   <th>Location</th>
                   <th>Contact</th>
                   <th>Reason</th>
@@ -38,6 +48,15 @@ const MyFoodRequests = () => {
               <tbody className="dark:bg-black">
                 {myRequests.map((req) => (
                   <tr key={req._id} className="border-b">
+                    <td>
+                      <div>
+                        <img
+                          src={food.food_image}
+                          className="w-15 h-15 rounded-full"
+                          alt=""
+                        />
+                      </div>
+                    </td>
                     <td>{req.food_id}</td>
                     <td>{req.location}</td>
                     <td>{req.contact}</td>

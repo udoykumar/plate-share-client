@@ -97,13 +97,13 @@ const FoodDetails = () => {
   };
 
   return (
-    <div className="container mx-auto bg-gray-50 py-8 mt-15">
+    <div className="container mx-auto py-8 mt-15">
       {/* Animated Food Details Card */}
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="card lg:card-side bg-white rounded-0 overflow-hidden md:gap-5 lg:gap-0 shadow-md"
+        className="card lg:card-side rounded-0 overflow-hidden md:gap-5 lg:gap-0 shadow-md"
       >
         <figure className="w-full h-80 md:h-[500px] lg:h-full lg:w-[850px] rounded-2xl">
           <img
@@ -123,23 +123,20 @@ const FoodDetails = () => {
               {food_name}
             </h2>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6 text-sm text-gray-600">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6 text-sm ">
               <p>
-                <span className="font-semibold text-gray-700">Status:</span>{" "}
-                {food_status}
+                <span className="font-semibold ">Status:</span> {food_status}
               </p>
               <p>
-                <span className="font-semibold text-gray-700">Quantity:</span>{" "}
+                <span className="font-semibold t">Quantity:</span>{" "}
                 {food_quantity}
               </p>
               <p>
-                <span className="font-semibold text-gray-700">
-                  Expire Date:
-                </span>{" "}
+                <span className="font-semibold ">Expire Date:</span>{" "}
                 {expire_date}
               </p>
               <p>
-                <span className="font-semibold text-gray-700">Location:</span>{" "}
+                <span className="font-semibold ">Location:</span>{" "}
                 {pickup_location}
               </p>
             </div>
@@ -155,8 +152,8 @@ const FoodDetails = () => {
                   className="w-16 h-16 rounded-full object-cover border border-gray-300"
                 />
                 <div>
-                  <p className="font-medium text-gray-700">{donator_name}</p>
-                  <p className="text-sm text-gray-600">{donator_email}</p>
+                  <p className="font-medium ">{donator_name}</p>
+                  <p className="text-sm ">{donator_email}</p>
                 </div>
               </div>
             </div>

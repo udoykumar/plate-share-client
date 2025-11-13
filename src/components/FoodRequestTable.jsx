@@ -1,10 +1,13 @@
-import React, { useContext } from "react";
+import React from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import Swal from "sweetalert2";
+import { use } from "react";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const FoodRequestTable = ({ requestFood, setRequestFood, foodId }) => {
-  const { user } = useContext(AuthContext);
-
+  const { user } = use(AuthContext);
+  const [food, setFood] = useState([]);
   const handleRequestAction = (id, action) => {
     fetch(`http://localhost:3000/food-request/${id}`, {
       method: "PATCH",
@@ -21,7 +24,6 @@ const FoodRequestTable = ({ requestFood, setRequestFood, foodId }) => {
             timer: 1200,
           });
 
-          // ✅ If accepted, also mark food as donated
           if (action === "accepted") {
             fetch(`http://localhost:3000/foods/${foodId}`, {
               method: "PATCH",
@@ -30,26 +32,33 @@ const FoodRequestTable = ({ requestFood, setRequestFood, foodId }) => {
             });
           }
 
-          // ✅ Reload the requests
           fetch(`http://localhost:3000/foods/food-request/${foodId}`)
             .then((res) => res.json())
             .then((data) => setRequestFood(data));
         }
       });
   };
+  useEffect(() => {
+    fetch(`http://localhost:3000/foods/${foodId}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setFood(data);
+        console.log(data);
+      });
+  }, [foodId]);
 
   return (
-    <div className="px-4 md:px-12 bg-gray-50">
+    <div className="px-4 md:px-12 dark:bg-black">
       {user && (
-        <div className="mt-6 bg-white p-6 shadow rounded-lg">
+        <div className="mt-6  p-6 shadow rounded-lg">
           {requestFood.length === 0 ? (
             <p className="text-gray-500">No requests yet.</p>
           ) : (
             <div className="overflow-x-auto">
               <table className="table w-full border">
-                <thead className="bg-[#fd7d07] text-white">
+                <thead className="bg-purple-500 text-white">
                   <tr>
-                    <th>User</th>
+                    <th>Food</th>
                     <th>Email</th>
                     <th>Location</th>
                     <th>Contact</th>
@@ -63,7 +72,7 @@ const FoodRequestTable = ({ requestFood, setRequestFood, foodId }) => {
                     <tr key={req._id} className="border-b">
                       <td className="flex items-center gap-2 py-2">
                         <img
-                          src={req.photoURL}
+                          src={food.food_image}
                           alt={req.user_name}
                           className="w-10 h-10 rounded-full"
                         />

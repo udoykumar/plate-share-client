@@ -10,11 +10,16 @@ import MyFoodRequests from "../pages/MyFoodRequests";
 import PrivateRoute from "../privateRoute/PrivateRoute";
 import FoodDetails from "../components/FoodDetails";
 import UpdateFood from "../components/UpdatedFood";
+import Loader from "../components/Loader";
+import Error from "../components/Error";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <HomeLayout />,
+    hydrateFallbackElement: <Loader />,
+    Loader: <Loader />,
+    errorElement: <Error />,
     children: [
       {
         index: true,
@@ -75,5 +80,9 @@ export const router = createBrowserRouter([
         ),
       },
     ],
+  },
+  {
+    path: "*",
+    element: <Error />,
   },
 ]);
