@@ -124,24 +124,25 @@ const FoodDetails = () => {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6 text-sm ">
                 <p>
-                  <span className="font-semibold ">Status: </span> {food_status}
+                  <span className="font-semibold text">Status: </span>{" "}
+                  {food_status}
                 </p>
                 <p>
-                  <span className="font-semibold t">Quantity: </span>{" "}
+                  <span className="font-semibold text">Quantity: </span>{" "}
                   {food_quantity}
                 </p>
                 <p>
-                  <span className="font-semibold ">Expire Date: </span>{" "}
+                  <span className="font-semibold text">Expire Date: </span>{" "}
                   {expire_date}
                 </p>
                 <p>
-                  <span className="font-semibold ">Location: </span>{" "}
+                  <span className="font-semibold text">Location: </span>{" "}
                   {pickup_location}
                 </p>
               </div>
 
               <div className="mb-6 border-t pt-4 border-[#fd7e075d]">
-                <h3 className=" mb-2 title font-bebas text-xl">
+                <h3 className="  title font-bebas text-xl">
                   Donator Information
                 </h3>
                 <div className="flex items-center space-x-4">
@@ -242,7 +243,7 @@ const FoodDetails = () => {
           transition={{ duration: 0.6 }}
           className="mt-10"
         >
-          <h3 className="text-3xl font-bold text-center text-purple-500 py-4">
+          <h3 className="title font-bebas">
             Request Food <span>({requestFood.length})</span>
           </h3>
           <FoodRequestTable

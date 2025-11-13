@@ -67,7 +67,7 @@ const AvailableFoods = () => {
               <figure>
                 <div className="w-full h-90 overflow-hidden rounded-2xl ">
                   <img
-                    className="w-full h-80 object-cover transform transition-transform duration-500 ease-in-out hover:scale-105"
+                    className="w-full h-90 object-cover transform transition-transform duration-500 ease-in-out hover:scale-105"
                     src={food.food_image}
                     alt={food.food_name}
                   />
@@ -75,25 +75,25 @@ const AvailableFoods = () => {
               </figure>
 
               <div className="card-body p-5">
-                <h2 className="text-xl font-semibold  dark:text-white ">
+                <h2 className="text-xl font-semibold  dark:text-white name font-popins ">
                   {food.food_name}
                 </h2>
 
-                <div className="mt-4 text-sm  dark:text-white space-y-1">
+                <div className=" text-sm  dark:text-white space-y-1">
                   <p>
-                    <span className="font-semibold">Quantity:</span>
+                    <span className="font-semibold">Quantity : </span>
                     {food.food_quantity}
                   </p>
                   <p>
-                    <span className="font-semibold">Pickup:</span>
+                    <span className="font-semibold text">Pickup : </span>
                     {food.pickup_location}
                   </p>
                   <div className="flex justify-between items-center dark:text-white">
                     <p>
-                      <span className="font-semibold">Expire:</span>
+                      <span className="font-semibold">Expire : </span>
                       {food.expire_date}
                     </p>
-                    <p className="py-1 px-3 bg-purple-200 dark:bg-purple-700/40 text-purple-600 dark:text-purple-300 rounded-md text-sm">
+                    <p className="py-2 px-3 bg-purple-200 dark:bg-purple-700/40 text-purple-600 dark:text-purple-300 rounded-md text-sm text-center">
                       {food.food_status}
                     </p>
                   </div>

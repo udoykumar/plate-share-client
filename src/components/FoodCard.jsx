@@ -14,7 +14,7 @@ const FoodCard = ({ food }) => {
         </span>
         <p className="text-sm">Location : {food.pickup_location}</p>
       </div>
-      <div className="w-full h-90 overflow-hidden rounded-2xl ">
+      <div className="w-full h-80 overflow-hidden rounded-2xl ">
         <img
           className="w-full h-80 object-cover transform transition-transform duration-500 ease-in-out hover:scale-105"
           src={food.food_image}

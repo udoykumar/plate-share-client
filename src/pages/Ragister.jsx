@@ -140,7 +140,7 @@ const Ragister = () => {
           <br />
           <button
             type="submit"
-            className="px-5 py-2 bg-amber-500 w-full rounded-full text-white cursor-pointer"
+            className="btn btn-primary w-full rounded-full text-white cursor-pointer"
           >
             Register Now
           </button>
@@ -148,7 +148,7 @@ const Ragister = () => {
         <hr className="my-4 text-gray-400" />
         <button
           onClick={handleGoogleSingIn}
-          className="px-5 py-2 bg-amber-500 w-full rounded-full text-white cursor-pointer flex  justify-center items-center"
+          className="btn btn-primary w-full rounded-full text-white cursor-pointer flex  justify-center items-center"
         >
           <FcGoogle size={25} className="mr-2" />
           Login with Google
