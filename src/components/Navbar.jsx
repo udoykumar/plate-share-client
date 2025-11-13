@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Link, NavLink } from "react-router";
 import { MdOutlineClose } from "react-icons/md";
 import { CiMenuFries } from "react-icons/ci";
@@ -11,6 +11,7 @@ const Navbar = () => {
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
@@ -25,11 +26,21 @@ const Navbar = () => {
       .catch((error) => console.log(error));
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   const navLinkClass = ({ isActive }) =>
     `text-md font-medium transition-colors duration-300 ${
       isActive
-        ? "py-2 px-3 rounded-md bg-purple-100 text-purple-500  transition"
-        : " py-2 px-3 rounded-md text-gray-800 dark:text-gray-200 hover:text-purple-500 hover:bg-purple-100 dark:hover:text-purple-400"
+        ? "py-2 px-3 rounded-md bg-purple-100 text-purple-500 transition"
+        : "py-2 px-3 rounded-md text-gray-800 dark:text-gray-200 hover:text-purple-500 hover:bg-purple-100 dark:hover:text-purple-400"
     }`;
 
   return (
@@ -38,7 +49,7 @@ const Navbar = () => {
     >
       <Link to="/" className="max-md:flex-1">
         <div className="flex items-center">
-          <img className="w-15 h-10 rounded-fulls" src={logo} alt="" />
+          <img className="w-15 h-10 rounded-fulls" src={logo} alt="Logo" />
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
             Food <span className="text-purple-500">Sharing</span>
           </h1>
@@ -46,11 +57,11 @@ const Navbar = () => {
       </Link>
 
       <div
-        className={`max-md:absolute max-md:top-0 max-md:left-0 z-40 flex flex-col md:flex-row items-center gap-8 md:static 
-           dark:bg-gray-800/90 max-md:h-90 md:hidden max-md:w-60 md:w-auto px-6 py-6 md:p-0
+        className={`max-md:absolute max-md:top-0 max-md:right-6 z-40 flex flex-col md:flex-row items-center gap-8 md:static 
+          max-md:h-90 max-md:w-60 md:w-auto px-6 py-6 md:p-0
           transition-all duration-300 ease-in-out ${
             isOpen
-              ? "max-md:opacity-100 bg-white/20 mt-20"
+              ? "max-md:opacity-100 bg-white/90 mt-20 md:hidden shadow-2xl rounded-md"
               : "max-md:opacity-0 max-md:pointer-events-none"
           }`}
       >
@@ -76,7 +87,7 @@ const Navbar = () => {
         </NavLink>
       </div>
 
-      <div className="flex items-center gap-6 relative">
+      <div className="flex items-center gap-6 relative" ref={dropdownRef}>
         {user ? (
           <div className="relative">
             <img
@@ -89,7 +100,7 @@ const Navbar = () => {
             {dropdownOpen && (
               <div
                 className="absolute right-0 top-12 min-w-60 bg-white dark:bg-gray-800 
-                text-gray-800 dark:text-gray-200 shadow-xl rounded-lg p-4 border border-gray-200 dark:border-gray-700"
+                text-gray-800 dark:text-gray-200 shadow-xl rounded-lg p-4 border border-gray-200 dark:border-gray-700 z-50"
               >
                 <p className="mb-3 font-semibold text-center">
                   {user.displayName || "User"}
@@ -124,7 +135,6 @@ const Navbar = () => {
                   </NavLink>
                 </div>
 
-                {/* Dark Mode Toggle */}
                 <div className="flex items-center justify-between mt-4 pt-3 border-t border-gray-200 dark:border-gray-700">
                   <span>Dark Mode</span>
                   <input
@@ -154,10 +164,11 @@ const Navbar = () => {
         )}
       </div>
 
-      {/* Menu Icon (mobile) */}
       <CiMenuFries
         onClick={() => setIsOpen(!isOpen)}
-        className="md:hidden w-8 h-8 cursor-pointer text-gray-700 dark:text-gray-200"
+        className={`md:hidden w-8 h-8 cursor-pointer text-gray-700 dark:text-gray-200 ${
+          !isOpen ? "block" : "hidden"
+        }`}
       />
     </div>
   );

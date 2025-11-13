@@ -14,11 +14,13 @@ const FoodCard = ({ food }) => {
         </span>
         <p className="text-sm">Location : {food.pickup_location}</p>
       </div>
-      <img
-        className="w-full h-90 bg-cover bg-center "
-        src={food.food_image}
-        alt=""
-      />
+      <div className="w-full h-90 overflow-hidden rounded-2xl ">
+        <img
+          className="w-full h-80 object-cover transform transition-transform duration-500 ease-in-out hover:scale-105"
+          src={food.food_image}
+          alt="Food"
+        />
+      </div>
 
       <article className="text-sm font-medium dark:text-white space-y-1">
         <p className="name">{food.food_name}</p>
