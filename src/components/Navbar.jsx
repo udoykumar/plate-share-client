@@ -4,6 +4,7 @@ import { MdOutlineClose } from "react-icons/md";
 import { CiMenuFries } from "react-icons/ci";
 import { AuthContext } from "../contexts/AuthContext";
 import { toast } from "react-toastify";
+import logo from "/logo.png";
 
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
@@ -38,9 +39,12 @@ const Navbar = () => {
       }`}
     >
       <Link to="/" className="max-md:flex-1">
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
-          Food <span className="text-purple-500">Sharing</span>
-        </h1>
+        <div className="flex items-center">
+          <img className="w-15 h-15 rounded-fulls" src={logo} alt="" />
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+            Food <span className="text-purple-500">Sharing</span>
+          </h1>
+        </div>
       </Link>
 
       <div

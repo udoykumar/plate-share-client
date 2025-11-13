@@ -17,6 +17,7 @@ const Login = () => {
   // if (user) {
   //   navigate("/");
   // }
+  const userPath = location.state?.from || "/";
   const handleEmailPassLogin = (e) => {
     e.preventDefault();
     const email = e.target.email.value;
@@ -24,8 +25,8 @@ const Login = () => {
 
     singInUser(email, password)
       .then((result) => {
-        console.log(location.state);
-        navigate(location.state);
+        console.log(location);
+        navigate(userPath, { replace: true });
         console.log(result);
       })
       .catch((error) => {
@@ -38,7 +39,7 @@ const Login = () => {
       .then((result) => {
         console.log(result);
         console.log(location.state);
-        navigate(location.state);
+        navigate(userPath, { replace: true });
       })
       .catch((error) => {
         console.log(error);

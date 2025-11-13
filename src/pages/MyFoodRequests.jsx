@@ -4,24 +4,14 @@ import { AuthContext } from "../contexts/AuthContext";
 const MyFoodRequests = () => {
   const { user } = useContext(AuthContext);
   const [myRequests, setMyRequests] = useState([]);
-  const [food, setFood] = useState([]);
+  console.log(myRequests);
   useEffect(() => {
     if (!user?.email) return;
-
-    fetch(`http://localhost:3000/food-request/${user.email}`)
+    fetch(`https://plate-share-server-mu.vercel.app/food-request/${user.email}`)
       .then((res) => res.json())
       .then((data) => setMyRequests(data))
       .catch((err) => console.error(err));
   }, [user?.email]);
-
-  useEffect(() => {
-    fetch(`http://localhost:3000/foods/${myRequests.food_id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setFood(data);
-        console.log(data);
-      });
-  }, [myRequests.food_id]);
 
   return (
     <div className="px-4 md:px-12  min-h-screen mt-15">
@@ -51,7 +41,7 @@ const MyFoodRequests = () => {
                     <td>
                       <div>
                         <img
-                          src={food.food_image}
+                          src={req.food_image}
                           className="w-15 h-15 rounded-full"
                           alt=""
                         />

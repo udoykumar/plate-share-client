@@ -9,7 +9,7 @@ const FoodRequestTable = ({ requestFood, setRequestFood, foodId }) => {
   const { user } = use(AuthContext);
   const [food, setFood] = useState([]);
   const handleRequestAction = (id, action) => {
-    fetch(`http://localhost:3000/food-request/${id}`, {
+    fetch(`https://plate-share-server-mu.vercel.app/food-request/${id}`, {
       method: "PATCH",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({ status: action }),
@@ -25,27 +25,29 @@ const FoodRequestTable = ({ requestFood, setRequestFood, foodId }) => {
           });
 
           if (action === "accepted") {
-            fetch(`http://localhost:3000/foods/${foodId}`, {
+            fetch(`https://plate-share-server-mu.vercel.app/foods/${foodId}`, {
               method: "PATCH",
               headers: { "content-type": "application/json" },
               body: JSON.stringify({ food_status: "donated" }),
             });
           }
 
-          fetch(`http://localhost:3000/foods/food-request/${foodId}`)
+          fetch(
+            `https://plate-share-server-mu.vercel.app/foods/food-request/${foodId}`
+          )
             .then((res) => res.json())
             .then((data) => setRequestFood(data));
         }
       });
   };
-  useEffect(() => {
-    fetch(`http://localhost:3000/foods/${foodId}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setFood(data);
-        console.log(data);
-      });
-  }, [foodId]);
+  // useEffect(() => {
+  //   fetch(`https://plate-share-server-mu.vercel.app/foods/${foodId}`)
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setFood(data);
+  //       console.log(data);
+  //     });
+  // }, [foodId]);
 
   return (
     <div className="px-4 md:px-12 dark:bg-black">
