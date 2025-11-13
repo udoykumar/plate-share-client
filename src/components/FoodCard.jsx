@@ -12,7 +12,7 @@ const FoodCard = ({ food }) => {
           />
           <p className="dark:text-white">{food.donator_name}</p>
         </span>
-        <p className="text-sm">Location : {food.pickup_location}</p>
+        <p className="text">Location : {food.pickup_location}</p>
       </div>
       <div className="w-full h-80 overflow-hidden rounded-2xl ">
         <img
@@ -24,8 +24,10 @@ const FoodCard = ({ food }) => {
 
       <article className="text-sm font-medium dark:text-white space-y-1">
         <p className="name">{food.food_name}</p>
-        <p>Expire Date : {new Date(food.expire_date).toLocaleDateString()}</p>
-        <p>Quantity : {food.food_quantity}</p>
+        <p className="text">
+          Expire Date : {new Date(food.expire_date).toLocaleDateString()}
+        </p>
+        <p className="text">Quantity : {food.food_quantity}</p>
       </article>
       <Link
         to={`/foodDetails/${food._id}`}

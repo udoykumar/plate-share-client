@@ -74,22 +74,22 @@ const AvailableFoods = () => {
                 </div>
               </figure>
 
-              <div className="card-body p-5">
-                <h2 className="text-xl font-semibold  dark:text-white name font-popins ">
+              <div className="card-body p-5 flex flex-col">
+                <h2 className="text-xl font-semibold  dark:text-white name font-popins flex-1">
                   {food.food_name}
                 </h2>
 
                 <div className=" text-sm  dark:text-white space-y-1">
-                  <p>
+                  <p className="text">
                     <span className="font-semibold">Quantity : </span>
                     {food.food_quantity}
                   </p>
-                  <p>
-                    <span className="font-semibold text">Pickup : </span>
+                  <p className="text">
+                    <span className="font-semibold ">Pickup : </span>
                     {food.pickup_location}
                   </p>
                   <div className="flex justify-between items-center dark:text-white">
-                    <p>
+                    <p className="text">
                       <span className="font-semibold">Expire : </span>
                       {food.expire_date}
                     </p>
@@ -110,7 +110,7 @@ const AvailableFoods = () => {
                   </div>
                 </div>
 
-                <div className="card-actions mt-5">
+                <div className="card-actions mt-5 ">
                   <button
                     onClick={() => handleViewDetails(food._id)}
                     className="btn btn-primary w-full bg-gradient-to-r from-purple-500 to-purple-700 border-0 hover:from-purple-600 hover:to-purple-800 text-white"

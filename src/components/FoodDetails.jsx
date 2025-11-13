@@ -38,6 +38,7 @@ const FoodDetails = () => {
     donator_email,
     donator_image,
     food_status,
+    additional_notes,
   } = foods;
 
   useEffect(() => {
@@ -123,21 +124,30 @@ const FoodDetails = () => {
               <h2 className="name text-3xl font-bold name pb-2">{food_name}</h2>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6 text-sm ">
-                <p>
-                  <span className="font-semibold text">Status: </span>{" "}
-                  {food_status}
+                <p className="text">
+                  <span className="font-semibold font-bold">Status: </span>
+                  <span className="badge badge-warning"> {food_status}</span>
                 </p>
-                <p>
-                  <span className="font-semibold text">Quantity: </span>{" "}
-                  {food_quantity}
+                <p className="text">
+                  <span className="font-semibold font-bold">Quantity: </span>
+                  <span className="badge badge-error">{food_quantity} </span>
                 </p>
-                <p>
-                  <span className="font-semibold text">Expire Date: </span>{" "}
-                  {expire_date}
+                <p className="text">
+                  <span className="font-semibold font-bold">Expire Date: </span>
+                  <span className="badge badge-success">{expire_date} </span>
                 </p>
-                <p>
-                  <span className="font-semibold text">Location: </span>{" "}
-                  {pickup_location}
+                <p className="text">
+                  <span className="font-semibold font-bold">Location: </span>
+                  <span className="badge badge-accent">
+                    {" "}
+                    {pickup_location}{" "}
+                  </span>
+                </p>
+              </div>
+              <div>
+                <p className="text">
+                  <span className="text-lg font-bold">Reason: </span>
+                  {additional_notes}
                 </p>
               </div>
 

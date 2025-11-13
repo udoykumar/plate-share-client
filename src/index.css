@@ -25,7 +25,7 @@
   @apply text-purple-500 text-lg font-bold  tracking-wider;
 }
 .text {
-  @apply text-sm text-gray-400 my-2;
+  @apply text-md text-gray-500 my-2;
 }
 .name {
   @apply text-2xl  my-2 dark:text-white text-purple-500;
