@@ -4,6 +4,7 @@ import { AuthContext } from "../contexts/AuthContext";
 const MyFoodRequests = () => {
   const { user } = useContext(AuthContext);
   const [myRequests, setMyRequests] = useState([]);
+
   console.log(myRequests);
   useEffect(() => {
     if (!user?.email) return;
@@ -17,8 +18,11 @@ const MyFoodRequests = () => {
   }, [user?.email]);
 
   return (
-    <div className="px-4 md:px-12  min-h-screen mt-15">
-      <h2 className="text-3xl font-bold text-purple-500 py-4 text-center">
+    <div className="px-4 md:px-12  min-h-screen mt-20">
+      <h2
+        className="title font-bebas
+      "
+      >
         My Food Requests ({myRequests.length})
       </h2>
 
@@ -36,7 +40,7 @@ const MyFoodRequests = () => {
                   <th>Contact</th>
                   <th>Reason</th>
                   <th>Status</th>
-                  <th>Delete</th>
+                  {/* <th>Delete</th> */}
                 </tr>
               </thead>
               <tbody className="dark:bg-black">
@@ -45,7 +49,7 @@ const MyFoodRequests = () => {
                     <td>
                       <div>
                         <img
-                          src={req.food_image}
+                          src={req.photoURL}
                           className="w-15 h-15 rounded-full"
                           alt=""
                         />
@@ -72,7 +76,7 @@ const MyFoodRequests = () => {
                         {req.status}
                       </span>
                     </td>
-                    <td className="badge badge-error mt-7">Delete</td>
+                    {/* <td className="badge badge-error mt-7">Delete</td> */}
                   </tr>
                 ))}
               </tbody>

@@ -40,14 +40,14 @@ const FoodRequestTable = ({ requestFood, setRequestFood, foodId }) => {
         }
       });
   };
-  // useEffect(() => {
-  //   fetch(`https://plate-share-server-mu.vercel.app/foods/${foodId}`)
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setFood(data);
-  //       console.log(data);
-  //     });
-  // }, [foodId]);
+  useEffect(() => {
+    fetch(`https://plate-share-server-mu.vercel.app/foods/${foodId}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setFood(data);
+        console.log(data);
+      });
+  }, [foodId]);
 
   return (
     <div className="px-4 md:px-12 dark:bg-black">
@@ -60,7 +60,7 @@ const FoodRequestTable = ({ requestFood, setRequestFood, foodId }) => {
               <table className="table w-full border">
                 <thead className="bg-purple-500 text-white">
                   <tr>
-                    <th>Food</th>
+                    <th>user</th>
                     <th>Email</th>
                     <th>Location</th>
                     <th>Contact</th>

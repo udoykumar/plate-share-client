@@ -7,6 +7,7 @@ import { AuthContext } from "../contexts/AuthContext";
 import { toast } from "react-toastify";
 import FoodRequestTable from "./FoodRequestTable";
 import { motion, AnimatePresence } from "framer-motion";
+import { IoMdClose } from "react-icons/io";
 
 const FoodDetails = () => {
   const foods = useLoaderData();
@@ -102,70 +103,70 @@ const FoodDetails = () => {
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="card lg:card-side rounded-0 overflow-hidden md:gap-5 lg:gap-0 shadow-md"
+        className=""
       >
-        <figure className="w-full h-80 md:h-[500px] lg:h-full lg:w-[850px] rounded-2xl">
-          <img
-            src={food_image}
-            alt={food_name}
-            className="object-cover h-full w-full transition-opacity duration-300 hover:opacity-90"
-          />
-        </figure>
+        <div className="p-5 card lg:card-side rounded-0 overflow-hidden md:gap-5 lg:gap-0 shadow-md">
+          <figure className="w-full h-80 md:h-[500px] lg:h-90 lg:w-[850px] rounded-2xl">
+            <img
+              src={food_image}
+              alt={food_name}
+              className="object-cover h-full w-full transition-opacity duration-300 hover:opacity-90"
+            />
+          </figure>
 
-        <div className="card-body flex flex-col justify-between p-3 w-full md:pl-10">
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.2, duration: 0.6 }}
-          >
-            <h2 className="card-title text-3xl font-bold text-[#fd7d07] pb-2">
-              {food_name}
-            </h2>
+          <div className="card-body flex flex-col justify-between p-3 w-full md:pl-10">
+            <motion.div
+              initial={{ opacity: 0, x: 40 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.2, duration: 0.6 }}
+            >
+              <h2 className="name text-3xl font-bold name pb-2">{food_name}</h2>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6 text-sm ">
-              <p>
-                <span className="font-semibold ">Status:</span> {food_status}
-              </p>
-              <p>
-                <span className="font-semibold t">Quantity:</span>{" "}
-                {food_quantity}
-              </p>
-              <p>
-                <span className="font-semibold ">Expire Date:</span>{" "}
-                {expire_date}
-              </p>
-              <p>
-                <span className="font-semibold ">Location:</span>{" "}
-                {pickup_location}
-              </p>
-            </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6 text-sm ">
+                <p>
+                  <span className="font-semibold ">Status: </span> {food_status}
+                </p>
+                <p>
+                  <span className="font-semibold t">Quantity: </span>{" "}
+                  {food_quantity}
+                </p>
+                <p>
+                  <span className="font-semibold ">Expire Date: </span>{" "}
+                  {expire_date}
+                </p>
+                <p>
+                  <span className="font-semibold ">Location: </span>{" "}
+                  {pickup_location}
+                </p>
+              </div>
 
-            <div className="mb-6 border-t pt-4 border-[#fd7e075d]">
-              <h3 className="font-semibold mb-2 text-[#fd7d07] text-xl">
-                Donator Information
-              </h3>
-              <div className="flex items-center space-x-4">
-                <img
-                  src={donator_image}
-                  alt={donator_name}
-                  className="w-16 h-16 rounded-full object-cover border border-gray-300"
-                />
-                <div>
-                  <p className="font-medium ">{donator_name}</p>
-                  <p className="text-sm ">{donator_email}</p>
+              <div className="mb-6 border-t pt-4 border-[#fd7e075d]">
+                <h3 className=" mb-2 title font-bebas text-xl">
+                  Donator Information
+                </h3>
+                <div className="flex items-center space-x-4">
+                  <img
+                    src={donator_image}
+                    alt={donator_name}
+                    className="w-16 h-16 rounded-full object-cover border border-gray-300"
+                  />
+                  <div>
+                    <p className="font-medium ">{donator_name}</p>
+                    <p className="text-sm ">{donator_email}</p>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={handleFoodRequestModal}
-              className="btn btn-primary"
-            >
-              Request Food
-            </motion.button>
-          </motion.div>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={handleFoodRequestModal}
+                className="btn btn-primary"
+              >
+                Request Food
+              </motion.button>
+            </motion.div>
+          </div>
         </div>
       </motion.div>
 
@@ -182,9 +183,7 @@ const FoodDetails = () => {
             transition={{ duration: 0.3 }}
             className="modal-box"
           >
-            <h3 className="font-bold text-lg mb-3 text-[#fd7d07]">
-              Food Request Form
-            </h3>
+            <h3 className="title font-bebas">Food Request Form</h3>
 
             <form onSubmit={handleFoodReqSubmit}>
               <label className="flex items-center mb-1">
@@ -217,7 +216,7 @@ const FoodDetails = () => {
                 className="w-full h-28 p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 mb-4"
               ></textarea>
 
-              <div className="flex justify-end gap-2">
+              <div className="flex justify-start gap-2">
                 <button type="submit" className="btn btn-primary">
                   Submit Request
                 </button>
@@ -226,7 +225,9 @@ const FoodDetails = () => {
 
             <div className="modal-action">
               <form method="dialog">
-                <button className="btn">Close</button>
+                <button className="">
+                  <IoMdClose />
+                </button>
               </form>
             </div>
           </motion.div>
