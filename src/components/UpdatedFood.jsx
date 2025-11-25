@@ -38,64 +38,72 @@ const UpdateFood = () => {
   };
 
   return (
-    <div className="container mx-auto py-10 px-6 mt-15">
-      <h2 className="text-3xl font-bold text-center text-purple-600 mb-8">
-        Update Food
-      </h2>
-      <form
-        onSubmit={handleUpdate}
-        className="space-y-4 bg-white p-6 shadow-md rounded-xl"
-      >
-        <input
-          type="text"
-          name="food_name"
-          defaultValue={food.food_name}
-          className="input input-bordered w-full"
-          placeholder="Food Name"
-          required
-        />
-        <input
-          type="text"
-          name="food_image"
-          defaultValue={food.food_image}
-          className="input input-bordered w-full"
-          placeholder="Image URL"
-          required
-        />
-        <input
-          type="number"
-          name="food_quantity"
-          defaultValue={food.food_quantity}
-          className="input input-bordered w-full"
-          placeholder="Quantity"
-          required
-        />
-        <input
-          type="text"
-          name="pickup_location"
-          defaultValue={food.pickup_location}
-          className="input input-bordered w-full"
-          placeholder="Pickup Location"
-          required
-        />
-        <input
-          type="date"
-          name="expire_date"
-          defaultValue={food.expire_date}
-          className="input input-bordered w-full"
-          required
-        />
-        <textarea
-          name="additional_notes"
-          defaultValue={food.additional_notes}
-          className="textarea textarea-bordered w-full"
-          placeholder="Additional Notes"
-        ></textarea>
-
-        <button className="bg-purple-600 hover:bg-purple-700 text-white w-full py-2 rounded-md font-semibold">
+    <div className="container mx-auto py-10 px-6 mt-15 w-1/2 h-[80vh] flex items-center">
+      <div className=" p-10 shadow-2xl rounded-lg ">
+        <h2 className="text-3xl font-bold text-center text-purple-600 mb-8">
           Update Food
-        </button>
-      </form>
+        </h2>
+        <form
+          onSubmit={handleUpdate}
+          className="space-y-4  p-6 shadow-md rounded-xl"
+        >
+          <label>Name</label>
+          <input
+            type="text"
+            name="food_name"
+            defaultValue={food.food_name}
+            className="input input-bordered w-full"
+            placeholder="Food Name"
+            required
+          />
+          <label>Photo URL</label>
+          <input
+            type="text"
+            name="food_image"
+            defaultValue={food.food_image}
+            className="input input-bordered w-full"
+            placeholder="Image URL"
+            required
+          />
+          <label>Food Quantity</label>
+          <input
+            type="number"
+            name="food_quantity"
+            defaultValue={food.food_quantity}
+            className="input input-bordered w-full"
+            placeholder="Quantity"
+            required
+          />
+          <label>Pickup Location</label>
+          <input
+            type="text"
+            name="pickup_location"
+            defaultValue={food.pickup_location}
+            className="input input-bordered w-full"
+            placeholder="Pickup Location"
+            required
+          />
+          <label>Date</label>
+          <input
+            type="date"
+            name="expire_date"
+            defaultValue={food.expire_date}
+            className="input input-bordered w-full"
+            required
+          />
+          <label>Reason</label>
+          <textarea
+            name="additional_notes"
+            defaultValue={food.additional_notes}
+            className="textarea textarea-bordered w-full"
+            placeholder="Additional Notes"
+          ></textarea>
+
+          <button className="bg-purple-600 hover:bg-purple-700 text-white w-full py-2 rounded-md font-semibold">
+            Update Food
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

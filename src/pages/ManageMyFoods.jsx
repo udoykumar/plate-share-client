@@ -49,8 +49,8 @@ const ManageMyFoods = () => {
       </h1>
 
       <div className="overflow-x-auto">
-        <table className="table w-full bg-white dark:bg-gray-800 rounded-xl shadow-md transition-colors duration-300">
-          <thead className="bg-purple-100 dark:bg-purple-700 text-gray-700 dark:text-gray-200">
+        <table className="table w-full dark:bg-gray-800 rounded-xl shadow-md transition-colors duration-300">
+          <thead className=" bg-purple-300 text-gray-700 ">
             <tr>
               <th>#</th>
               <th>Image</th>
@@ -66,12 +66,12 @@ const ManageMyFoods = () => {
             {foods.map((food, index) => (
               <motion.tr
                 key={food._id}
-                className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-300"
+                className="hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-300"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: index * 0.05 }}
               >
-                <td>{index + 1}</td>
+                <td className="dark:text-white">{index + 1}</td>
                 <td>
                   <img
                     src={food.food_image}
@@ -79,18 +79,12 @@ const ManageMyFoods = () => {
                     className="w-16 h-16 rounded-lg object-cover"
                   />
                 </td>
-                <td className="font-semibold text-gray-700 dark:text-gray-200">
+                <td className="font-semibold dark:text-gray-200">
                   {food.food_name}
                 </td>
-                <td className="text-gray-700 dark:text-gray-300">
-                  {food.food_quantity}
-                </td>
-                <td className="text-gray-700 dark:text-gray-300">
-                  {food.expire_date}
-                </td>
-                <td className="text-gray-700 dark:text-gray-300">
-                  {food.food_status}
-                </td>
+                <td className="dark:text-gray-300">{food.food_quantity}</td>
+                <td className="dark:text-gray-300">{food.expire_date}</td>
+                <td className=" dark:text-gray-300">{food.food_status}</td>
                 <td className="flex flex-col md:flex-row gap-2 mt-4">
                   <motion.button
                     onClick={() => navigate(`/update-food/${food._id}`)}
