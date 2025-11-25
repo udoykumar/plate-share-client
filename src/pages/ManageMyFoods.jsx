@@ -66,7 +66,7 @@ const ManageMyFoods = () => {
             {foods.map((food, index) => (
               <motion.tr
                 key={food._id}
-                className="hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-300"
+                className="hover:bg-gray-200 hover:text-gray-700 transition-colors duration-300"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: index * 0.05 }}

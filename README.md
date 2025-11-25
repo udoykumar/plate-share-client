@@ -8,45 +8,64 @@ PlateShare is a MERN full-stack application that allows users to share surplus f
 
 ## Key Features
 
-- Firebase Authentication (Email/Password + Google login)
-- CRUD operations for food management (Add, Update, Delete, View)
-- Food request system for donors and recipients
-- Dynamic Featured Foods and responsive grid layouts
-- Loading states and 404 error handling
-- Animations with Framer Motion / AOS / react-spring (optional)
+Firebase Authentication (Email/Password + Google login)
+ 
+ CRUD operations for food management (Add, Update, Delete, View)
+ 
+ Food request system for donors and recipients
+ 
+ Dynamic Featured Foods and responsive grid 
+
+ Loading states and 404 error 
+
+ Animations with Framer Motion / AOS / react-spring (optional)
 
 ---
 
 ## Dependencies
 
-### Client
+**Client**
 
-react
-react-dom
-react-router-dom
-firebase
-tailwindcss
-axios
-framer-motion
-react-hook-form
-@tanstack/react-query
-sweetalert2
-react-icons
+**react**
 
-### Server
+**react-router**
 
-express
-mongoose
-cors
-dotenv
-node js
-middlewire
+**firebase**
+
+**tailwindcss**
+
+**axios**
+
+**framer-motion**
+
+**react-hook-form**
+
+**sweetalert2**
+
+**react-icons**
+
+**Server**
+
+**express**
+
+**mongoose**
+
+**cors**
+
+**dotenv**
+
+**node js**
+
+**middlewire**
 
 --
 
-## Environment Variables
+**Environment Variables**
 
-##Repository
-##client: (https://github.com/udoykumar/plate-share-client.git)
-##server: (https://github.com/udoykumar/plate-share-server.git)
-##Live link : (https://plate-share-website.netlify.app/)
+**Repository**
+
+**client: (https://github.com/udoykumar/plate-share-client.git)**
+
+**server: (https://github.com/udoykumar/plate-share-server.git)**
+
+**Live link : (https://plate-share-website.netlify.app/)**
