@@ -9,9 +9,9 @@ const Loader = ({ fullScreen = false }) => {
       }`}
     >
       <div className="relative">
-        <div className="animate-spin rounded-full h-20 w-20 border-t-4 border-b-4 border-orange-500"></div>
+        <div className="animate-spin rounded-full h-20 w-20 border-t-4 border-b-4 border-purple-500"></div>
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-          <GiCookingPot className="text-orange-500 text-2xl" />
+          <GiCookingPot className="text-purple-500 text-2xl" />
         </div>
       </div>
       <p className="mt-4 text-lg font-medium text-gray-600">Loading...</p>
